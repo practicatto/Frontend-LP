@@ -1,5 +1,6 @@
 import 'package:abonet/views/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'routes/routes.dart' as route;
 
 void main() {
@@ -12,6 +13,9 @@ Color acceColor = Color(0xFFeb9405);
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Abonet',
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
       ),
-      home: Home(title: 'Flutter Demo Home Page'),
+      home: Home(title: 'Abonet'),
       onGenerateRoute: route.controller,
       initialRoute: route.homeView,
     );

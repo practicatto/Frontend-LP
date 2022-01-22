@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.abonet">
+    package="com.joangiemarquez.abonet">
    <application
         android:label="abonet"
         android:icon="@mipmap/ic_launcher">
