@@ -1,4 +1,4 @@
-package com.example.abonet
+package com.joangiemarquez.abonet
 
 import io.flutter.embedding.android.FlutterActivity
 
