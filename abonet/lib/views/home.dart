@@ -31,7 +31,19 @@ class _HomeState extends State<Home> {
             ),
             ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, route.loginView),
-                child: Text("login"))
+                child: Text("login")),
+            ElevatedButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, route.categoriasView),
+                child: Text("Categorias")),
+            ElevatedButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, route.rankingsView),
+                child: Text("Rankings")),
+            ElevatedButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, route.ciudadesView),
+                child: Text("Ciudades"))
           ],
         ),
       ),
@@ -59,7 +71,7 @@ class _HomeState extends State<Home> {
             ),
           ],
           currentIndex: _selectedIndex,
-          onTap: (index) => setState(() => _selectedIndex = index),
+          onTap: (index) => setState(() => {_selectedIndex = index}),
           selectedItemColor: Colors.amber[
               800]), // This trailing comma makes auto-formatting nicer for build methods.
     );
