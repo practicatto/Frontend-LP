@@ -5,6 +5,9 @@ class RegisterFormProvider extends ChangeNotifier {
   String name = "";
   String email = "";
   String password = "";
+  String descripcion = "";
+  String experiencia = "";
+  
 
   bool _isLoading = false;
 

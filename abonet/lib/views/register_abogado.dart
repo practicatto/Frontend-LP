@@ -1,6 +1,6 @@
 import 'package:abonet/providers/register_form_provider.dart';
+import 'package:abonet/services/auth_service.dart';
 import 'package:abonet/ui/input_decorations.dart';
-import 'package:abonet/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:abonet/routes/routes.dart' as route;
 import 'package:provider/provider.dart';
@@ -96,37 +96,60 @@ class RegisterForm extends StatelessWidget {
             obscureText: true,
             decoration: InputDecorations.authInputDecoration(
                 hintText: "*****", labelText: "Contraseña"),
+            onChanged: (value) => registerForm.password = value,
             validator: (value) => validateNotEmpty(value),
           ),
           SizedBox(height: 10),
           TextFormField(
             decoration: InputDecorations.authInputDecoration(
                 hintText: "Me dedico a...", labelText: "Descripcion"),
+            onChanged: (value) => registerForm.descripcion = value,
           ),
           SizedBox(height: 10),
           TextFormField(
               minLines: 1,
               maxLines: 3,
+              onChanged: (value) => registerForm.experiencia = value,
               decoration: InputDecorations.authInputDecoration(
                   hintText: "Trabajo en...", labelText: "Experiencia")),
           SizedBox(height: 25),
-          ButtonWidget(
-              Color(0xff1c243c),
-              registerForm.isLoading ? "Espere..." : "Regístrate",
-              () => {
-                    registerForm.isLoading
-                        ? null
-                        : {
-                            FocusScope.of(context).unfocus(),
-                            registerForm.isValidForm()
-                                ? {
-                                    registerForm.isLoading = true,
-                                    Navigator.pushNamed(
-                                        context, route.homeView),
-                                  }
-                                : null
-                          }
-                  })
+          MaterialButton(
+            minWidth: 250,
+            height: 45,
+            onPressed: registerForm.isLoading
+                ? null
+                : () async {
+                    FocusScope.of(context).unfocus();
+                    final authService =
+                        Provider.of<AuthService>(context, listen: false);
+
+                    if (!registerForm.isValidForm()) return;
+
+                    registerForm.isLoading = true;
+
+                    await authService.createAbogado(
+                        registerForm.email,
+                        registerForm.password,
+                        registerForm.name,
+                        registerForm.descripcion,
+                        registerForm.experiencia);
+
+                    Navigator.pushNamed(context, route.homeView);
+
+                    registerForm.isLoading = false;
+                  },
+            color: Color(0xff1c243c),
+            disabledColor: Colors.grey,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+            child: Text(
+              "Regístrate",
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Colors.white70),
+            ),
+          )
         ],
       ),
     );
