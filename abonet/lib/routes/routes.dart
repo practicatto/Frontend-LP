@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //views
-import 'package:abonet/views/Chat.dart';
+import 'package:abonet/views/chat.dart';
 import 'package:abonet/views/home.dart';
 import 'package:abonet/views/login.dart';
 import 'package:abonet/views/register.dart';
