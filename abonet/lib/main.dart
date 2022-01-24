@@ -1,6 +1,8 @@
+import 'package:abonet/services/auth_service.dart';
 import 'package:abonet/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'routes/routes.dart' as route;
 
 void main() {
@@ -16,6 +18,22 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: ( _ ) => AuthService())
+      ],
+      child: MyAppContent()
+      );
+  }
+}
+
+class MyAppContent extends StatelessWidget {
+  const MyAppContent({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Abonet',
@@ -30,7 +48,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Home(title: 'Abonet'),
       onGenerateRoute: route.controller,
-      initialRoute: route.registerView,
+      initialRoute: route.loginView,
     );
   }
 }
