@@ -18,50 +18,116 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.title),
+            bottom: TabBar(
+              tabs: [
+                Tab(
+                  text: "Inicio",
+                  icon: Icon(Icons.home),
+                ),
+                Tab(
+                  text: "Ciudades",
+                  icon: Icon(Icons.location_city),
+                ),
+                Tab(
+                  text: "Categorias",
+                  icon: Icon(Icons.category),
+                ),
+              ],
             ),
-            ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, route.loginView),
-                child: Text("login"))
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          iconSize: 35,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble),
-              label: 'Chat',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Inicio',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.leaderboard),
-              label: 'Ranking',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Perfil',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: (index) => setState(() => _selectedIndex = index),
-          selectedItemColor: Colors.amber[
-              800]), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+          ),
+          body: TabBarView(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Bienvenido, Elmo Quito",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      //Card for saying look for a place
+                      Card(
+                          child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Text("Busca a los mejores abogados aquí"),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Theme.of(context).primaryColor,
+                                ),
+                                onPressed: () {},
+                                child: Text("Buscar")),
+                          ],
+                        ),
+                      )),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "FAQ",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Divider(),
+                      Text(
+                        "¿Qué es Abonet?",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  )),
+              Center(
+                child: Text(
+                  'Ciudades',
+                ),
+              ),
+              Center(
+                child: Text(
+                  'Categorias',
+                ),
+              ),
+            ],
+          ),
+
+          bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              iconSize: 35,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.chat_bubble),
+                  label: 'Chat',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Inicio',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.leaderboard),
+                  label: 'Ranking',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: 'Perfil',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: (index) => setState(() => _selectedIndex = index),
+              selectedItemColor: Colors.amber[
+                  800]), // This trailing comma makes auto-formatting nicer for build methods.
+        ));
   }
 }

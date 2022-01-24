@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Home(title: 'Abonet'),
       onGenerateRoute: route.controller,
-      initialRoute: route.loginView,
+      initialRoute: route.homeView,
     );
   }
 }

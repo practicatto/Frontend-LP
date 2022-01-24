@@ -1,5 +1,6 @@
 import 'package:abonet/models/login_model.dart';
 import 'package:flutter/material.dart';
+import 'package:abonet/routes/routes.dart' as route;
 
 class Login extends StatefulWidget {
   Login({Key? key, required this.title}) : super(key: key);
@@ -136,7 +137,7 @@ class _LoginState extends State<Login> {
                             ElevatedButton(
                               onPressed: () {
                                 if (validateAndSave()) {
-                                  Navigator.pushNamed(context, '/home');
+                                  Navigator.pushNamed(context, route.homeView);
                                 }
                               },
                               child: Text("Iniciar Sesión"),
@@ -147,7 +148,26 @@ class _LoginState extends State<Login> {
                                       .primaryColor, // background
                                   onPrimary: Colors.white,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40)),
+                                      borderRadius: BorderRadius.circular(35)),
+                                  minimumSize:
+                                      const Size.fromHeight(50) // foreground
+                                  ),
+                            ),
+                            SizedBox(height: 10),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, route.registerView);
+                              },
+                              child: Text("Registrarse"),
+                              style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  primary: Theme.of(context)
+                                      .accentColor, // background
+                                  onPrimary: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(35)),
                                   minimumSize:
                                       const Size.fromHeight(50) // foreground
                                   ),
