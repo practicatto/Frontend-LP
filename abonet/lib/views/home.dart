@@ -10,19 +10,40 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   int _selectedIndex = 0;
+  late TabController _tabController;
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: const <Widget>[
+            Tab(
+              text: "Inicio",
+            ),
+            Tab(
+              text: "Ciudades",
+            ),
+            Tab(
+              text: "Categoria",
+            ),
+          ],
+        ),
       ),
-      body: Center(
+      /*body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -46,6 +67,43 @@ class _HomeState extends State<Home> {
                 child: Text("Ciudades"))
           ],
         ),
+      ),*/
+      body: TabBarView(
+        controller: _tabController,
+        children: <Widget>[
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'You have pushed the button this many times:',
+                ),
+                ElevatedButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, route.loginView),
+                    child: Text("login")),
+                ElevatedButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, route.categoriasView),
+                    child: Text("Categorias")),
+                ElevatedButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, route.rankingsView),
+                    child: Text("Rankings")),
+                ElevatedButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, route.ciudadesView),
+                    child: Text("Ciudades"))
+              ],
+            ),
+          ),
+          Center(
+            child: Text("Ciudades"),
+          ),
+          Center(
+            child: Text("Categoria"),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

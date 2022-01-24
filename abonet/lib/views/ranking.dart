@@ -16,8 +16,7 @@ class _RankingState extends State<Ranking> {
           title: Text(widget.title),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: ListView(
             children: <Widget>[
               Text(
                 'Ranking',
