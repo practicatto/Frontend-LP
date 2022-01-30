@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "57972068029",
+    "project_id": "abonet-chat",
+    "storage_bucket": "abonet-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57972068029:android:600b9c8c115d54ad98b1d4",
+        "android_client_info": {
+          "package_name": "com.joangiemarquez.abonet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57972068029-hqfdueg8vmbjd5vued4jrkgio9lv49o8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.joangiemarquez.abonet",
+            "certificate_hash": "11dd22a82152162a89f67826b45a42eae8d99e7c"
+          }
+        },
+        {
+          "client_id": "57972068029-vvtuv8ntsd2h2afff6q5tr5i7qvskuc0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKjsTz4nSUR0v4rGknvMTyYd2iMTlaiqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57972068029-vvtuv8ntsd2h2afff6q5tr5i7qvskuc0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
