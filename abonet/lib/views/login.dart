@@ -1,4 +1,5 @@
 import 'package:abonet/models/login_model.dart';
+import 'package:abonet/routes/routes.dart' as route;
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -25,7 +26,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +56,7 @@ class _LoginState extends State<Login> {
                             Text(
                               "Inicia Sesión",
                               style: TextStyle(
-                                color: Theme.of(context).primaryColor,
+                                color: Theme.of(context).colorScheme.primary,
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -78,15 +79,20 @@ class _LoginState extends State<Login> {
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         color: Theme.of(context)
-                                            .accentColor
+                                            .colorScheme
+                                            .secondary
                                             .withOpacity(0.2)),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Theme.of(context).accentColor),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
                                   ),
                                   prefixIcon: Icon(Icons.email,
-                                      color: Theme.of(context).accentColor)),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary)),
                             ),
                             SizedBox(height: 20),
                             new TextFormField(
@@ -108,15 +114,20 @@ class _LoginState extends State<Login> {
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         color: Theme.of(context)
-                                            .accentColor
+                                            .colorScheme
+                                            .secondary
                                             .withOpacity(0.2)),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Theme.of(context).accentColor),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
                                   ),
                                   prefixIcon: Icon(Icons.lock,
-                                      color: Theme.of(context).accentColor),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary),
                                   suffixIcon: IconButton(
                                     onPressed: () {
                                       setState(() {
@@ -128,7 +139,8 @@ class _LoginState extends State<Login> {
                                             ? Icons.visibility_off
                                             : Icons.visibility,
                                         color: Theme.of(context)
-                                            .accentColor
+                                            .colorScheme
+                                            .secondary
                                             .withOpacity(0.2)),
                                   )),
                             ),
@@ -136,7 +148,7 @@ class _LoginState extends State<Login> {
                             ElevatedButton(
                               onPressed: () {
                                 if (validateAndSave()) {
-                                  Navigator.pushNamed(context, '/home');
+                                  Navigator.pushNamed(context, route.homeView);
                                 }
                               },
                               child: Text("Iniciar Sesión"),
@@ -144,7 +156,8 @@ class _LoginState extends State<Login> {
                                   padding: EdgeInsets.symmetric(
                                       vertical: 15, horizontal: 30),
                                   primary: Theme.of(context)
-                                      .primaryColor, // background
+                                      .colorScheme
+                                      .primary, // background
                                   onPrimary: Colors.white,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40)),
