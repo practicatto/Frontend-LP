@@ -2,7 +2,6 @@ import 'package:abonet/models/login_model.dart';
 import 'package:abonet/routes/routes.dart' as route;
 import 'package:abonet/services/login_service.dart';
 import 'package:flutter/material.dart';
-import 'package:abonet/routes/routes.dart' as route;
 
 class Login extends StatefulWidget {
   Login({Key? key, required this.title}) : super(key: key);

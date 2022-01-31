@@ -45,7 +45,7 @@ class MyAppContent extends StatelessWidget {
       ),
       home: Home(title: 'Abonet'),
       onGenerateRoute: route.controller,
-      initialRoute: route.loginView,
+      initialRoute: route.checkingView,
     );
   }
 }

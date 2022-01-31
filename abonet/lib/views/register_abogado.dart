@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:abonet/routes/routes.dart' as route;
 import 'package:provider/provider.dart';
 
+import 'home.dart';
+
 class RegistroAbogado extends StatelessWidget {
   const RegistroAbogado({Key? key}) : super(key: key);
 
@@ -134,8 +136,11 @@ class RegisterForm extends StatelessWidget {
                         registerForm.descripcion,
                         registerForm.experiencia);
 
-                    Navigator.pushNamed(context, route.homeView);
-
+                    // Navigator.pushReplacementNamed(context, route.homeView);
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(PageRouteBuilder(
+                        pageBuilder: (_, __, ___) => Home(title: "Home"),
+                        transitionDuration: Duration(seconds: 0)));
                     registerForm.isLoading = false;
                   },
             color: Color(0xff1c243c),
