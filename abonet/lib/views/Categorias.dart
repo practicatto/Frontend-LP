@@ -1,8 +1,8 @@
 import 'package:abonet/models/Categoria.dart';
+import 'package:abonet/services/api_service.dart';
 import 'package:abonet/ui/LoadingView.dart';
 import 'package:abonet/ui/cardCategoria.dart';
 import 'package:flutter/material.dart';
-import 'package:abonet/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class Categorias extends StatelessWidget {
@@ -20,7 +20,7 @@ class Categorias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categorias = Provider.of<AuthService>(context);
+    final categorias = Provider.of<ApiService>(context);
 
     if (categorias.isLoading) return LoadingView();
 

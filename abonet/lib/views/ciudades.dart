@@ -1,5 +1,5 @@
 import 'package:abonet/models/Ciudad.dart';
-import 'package:abonet/services/auth_service.dart';
+import 'package:abonet/services/api_service.dart';
 import 'package:abonet/ui/LoadingView.dart';
 import 'package:abonet/ui/cardCiudadesc.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class Ciudades extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ciudades = Provider.of<AuthService>(context);
+    final ciudades = Provider.of<ApiService>(context);
 
     if (ciudades.isLoading) return LoadingView();
 

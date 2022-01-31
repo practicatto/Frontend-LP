@@ -1,3 +1,4 @@
+import 'package:abonet/services/api_service.dart';
 import 'package:abonet/services/auth_service.dart';
 import 'package:abonet/views/home.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,10 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
-    return MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => AuthService())],
-        child: MyAppContent());
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => AuthService()),
+      ChangeNotifierProvider(create: (_) => ApiService())
+    ], child: MyAppContent());
   }
 }
 
