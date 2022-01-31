@@ -19,11 +19,8 @@ class MyApp extends StatelessWidget {
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: ( _ ) => AuthService())
-      ],
-      child: MyAppContent()
-      );
+        providers: [ChangeNotifierProvider(create: (_) => AuthService())],
+        child: MyAppContent());
   }
 }
 

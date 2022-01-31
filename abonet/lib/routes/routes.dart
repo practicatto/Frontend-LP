@@ -28,8 +28,7 @@ Route<dynamic> controller(RouteSettings settings) {
     case loginView:
       return MaterialPageRoute(builder: (_) => Login(title: 'Login'));
     case homeView:
-      return MaterialPageRoute(
-          builder: (_) => Home(title: 'Flutter Demo Home Page'));
+      return MaterialPageRoute(builder: (_) => Home(title: 'Abonet'));
     case chatView:
       return MaterialPageRoute(
           builder: (_) => Chat(title: 'Flutter Demo Home Page'));

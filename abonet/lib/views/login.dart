@@ -1,5 +1,6 @@
 import 'package:abonet/models/login_model.dart';
 import 'package:abonet/routes/routes.dart' as route;
+import 'package:abonet/services/login_service.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -15,11 +16,12 @@ class _LoginState extends State<Login> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool hidePassword = true;
   late LoginRequestModel requestModel;
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    requestModel = LoginRequestModel();
+    requestModel = new LoginRequestModel();
   }
 
   @override
@@ -148,8 +150,20 @@ class _LoginState extends State<Login> {
                             ElevatedButton(
                               onPressed: () {
                                 if (validateAndSave()) {
-                                  Navigator.pushReplacementNamed(
-                                      context, route.homeView);
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+
+                                  LoginService loginService =
+                                      new LoginService();
+                                  loginService
+                                      .login(requestModel)
+                                      .then((value) {
+                                    setState(() {
+                                      isLoading = false;
+                                      print(requestModel.toJson());
+                                    });
+                                  });
                                 }
                               },
                               child: Text("Iniciar Sesión"),
@@ -161,7 +175,27 @@ class _LoginState extends State<Login> {
                                       .primary, // background
                                   onPrimary: Colors.white,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40)),
+                                      borderRadius: BorderRadius.circular(35)),
+                                  minimumSize:
+                                      const Size.fromHeight(50) // foreground
+                                  ),
+                            ),
+                            SizedBox(height: 10),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, route.registerView);
+                              },
+                              child: Text("Registrarse"),
+                              style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  primary: Theme.of(context)
+                                      .colorScheme
+                                      .secondary, // background
+                                  onPrimary: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(35)),
                                   minimumSize:
                                       const Size.fromHeight(50) // foreground
                                   ),

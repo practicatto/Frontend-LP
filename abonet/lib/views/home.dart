@@ -26,107 +26,112 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const <Widget>[
-            Tab(
-              text: "Inicio",
-            ),
-            Tab(
-              text: "Ciudades",
-            ),
-            Tab(
-              text: "Categoria",
-            ),
-          ],
-        ),
-      ),
-      /*body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, route.loginView),
-                child: Text("login")),
-            ElevatedButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, route.categoriasView),
-                child: Text("Categorias")),
-            ElevatedButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, route.rankingsView),
-                child: Text("Rankings")),
-            ElevatedButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, route.ciudadesView),
-                child: Text("Ciudades"))
-          ],
-        ),
-      ),*/
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'You have pushed the button this many times:',
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.title),
+            bottom: TabBar(
+              tabs: [
+                Tab(
+                  text: "Inicio",
+                  icon: Icon(Icons.home),
                 ),
-                ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, route.loginView),
-                    child: Text("login")),
-                ElevatedButton(onPressed: () {}, child: Text("Categorias")),
-                ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, route.rankingsView),
-                    child: Text("Rankings")),
-                ElevatedButton(onPressed: () {}, child: Text("Ciudades"))
+                Tab(
+                  text: "Ciudades",
+                  icon: Icon(Icons.location_city),
+                ),
+                Tab(
+                  text: "Categorias",
+                  icon: Icon(Icons.category),
+                ),
               ],
             ),
           ),
-          Center(
-            child: Ciudades(),
+          body: TabBarView(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Bienvenido, Elmo Quito",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      //Card for saying look for a place
+                      Card(
+                          child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Text("Busca a los mejores abogados aquí"),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Theme.of(context).primaryColor,
+                                ),
+                                onPressed: () {},
+                                child: Text("Buscar")),
+                          ],
+                        ),
+                      )),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "FAQ",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Divider(),
+                      Text(
+                        "¿Qué es Abonet?",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  )),
+              Center(
+                child: Ciudades(),
+              ),
+              Center(
+                child: Categorias(),
+              ),
+            ],
           ),
-          Center(
-            child: Categorias(),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          iconSize: 35,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble),
-              label: 'Chat',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Inicio',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.leaderboard),
-              label: 'Ranking',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Perfil',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: (index) => setState(() => {_selectedIndex = index}),
-          selectedItemColor: Colors.amber[
-              800]), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+
+          bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              iconSize: 35,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.chat_bubble),
+                  label: 'Chat',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Inicio',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.leaderboard),
+                  label: 'Ranking',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: 'Perfil',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: (index) => setState(() => _selectedIndex = index),
+              selectedItemColor: Colors.amber[
+                  800]), // This trailing comma makes auto-formatting nicer for build methods.
+        ));
   }
 }

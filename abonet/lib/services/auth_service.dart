@@ -73,9 +73,7 @@ class AuthService extends ChangeNotifier {
       "calificacion": 5,
     };
     print(json.encode(registerData));
-    final resp = await http.post(url,
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(registerData));
+    final resp = await http.post(url, body: json.encode(registerData));
 
     final Map<String, dynamic> data = json.decode(resp.body);
     print(data);
