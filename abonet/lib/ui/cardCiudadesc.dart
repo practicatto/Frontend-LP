@@ -7,20 +7,32 @@ class CardCiudad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 400,
-      decoration: _boxDecoration(),
-      child: Column(
-        children: [
-          _ImageLogo(name: this.title),
-          Center(child: Text(this.title))
-        ],
-      ),
-    );
+    return InkWell(
+        onTap: () {},
+        child: Container(
+          width: double.infinity,
+          height: 400,
+          decoration: _boxDecoration(context),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _ImageLogo(name: this.title),
+              Center(
+                  child: Text(
+                this.title,
+                style: _estiloTexto(),
+              ))
+            ],
+          ),
+        ));
   }
 
-  BoxDecoration _boxDecoration() => BoxDecoration(
+  TextStyle _estiloTexto() => TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      );
+
+  BoxDecoration _boxDecoration(BuildContext context) => BoxDecoration(
           color: Colors.grey,
           borderRadius: BorderRadius.circular(25),
           boxShadow: [

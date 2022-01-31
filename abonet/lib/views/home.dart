@@ -1,3 +1,5 @@
+import 'package:abonet/views/Categorias.dart';
+import 'package:abonet/views/ciudades.dart';
 import 'package:flutter/material.dart';
 import 'package:abonet/routes/routes.dart' as route;
 
@@ -81,26 +83,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     onPressed: () =>
                         Navigator.pushNamed(context, route.loginView),
                     child: Text("login")),
-                ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, route.categoriasView),
-                    child: Text("Categorias")),
+                ElevatedButton(onPressed: () {}, child: Text("Categorias")),
                 ElevatedButton(
                     onPressed: () =>
                         Navigator.pushNamed(context, route.rankingsView),
                     child: Text("Rankings")),
-                ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, route.ciudadesView),
-                    child: Text("Ciudades"))
+                ElevatedButton(onPressed: () {}, child: Text("Ciudades"))
               ],
             ),
           ),
           Center(
-            child: Text("Ciudades"),
+            child: Ciudades(),
           ),
           Center(
-            child: Text("Categoria"),
+            child: Categorias(),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CardCategoria extends StatelessWidget {
   final String title;
@@ -7,22 +8,31 @@ class CardCategoria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 400,
-      decoration: _boxDecoration(),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _ImageLogo(name: this.title),
-          Center(child: Text(this.title))
-        ],
-      ),
-    );
+    return InkWell(
+        onTap: () {},
+        child: Container(
+          width: double.infinity,
+          height: 400,
+          decoration: _boxDecoration(context),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _ImageLogo(name: this.title),
+              Center(
+                  child: Text(
+                this.title,
+                style: _estiloTexto(),
+              ))
+            ],
+          ),
+        ));
   }
 
-  BoxDecoration _boxDecoration() => BoxDecoration(
-          color: Colors.grey,
+  TextStyle _estiloTexto() =>
+      TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
+
+  BoxDecoration _boxDecoration(BuildContext context) => BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
@@ -42,10 +52,14 @@ class _ImageLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
-      width: 70,
-      child:
-          Image.asset("lib/images/Iconos/${this.name.replaceAll(" ", "")}.png"),
+      child: Center(
+        child: SvgPicture.asset(
+          "lib/images/Iconos/${this.name.replaceAll(" ", "")}.svg",
+          height: 80,
+          width: 70,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }

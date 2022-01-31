@@ -29,6 +29,7 @@ dependencies:
   provider: ^6.0.2
 
 dev_dependencies:
+  flutter_svg: ^1.0.3
   flutter_test:
     sdk: flutter
 
@@ -48,11 +49,11 @@ flutter:
     - lib/images/banderas/Manta.png
     - lib/images/banderas/Duran.png
     - lib/images/banderas/Cuenca.png
-    - lib/images/Iconos/Administrativa.png
-    - lib/images/Iconos/Bancario.png
-    - lib/images/Iconos/BienesRaices.png
-    - lib/images/Iconos/Civil.png
-    - lib/images/Iconos/Constitucional.png
+    - lib/images/Iconos/Administrativa.svg
+    - lib/images/Iconos/Bancario.svg
+    - lib/images/Iconos/BienesRaices.svg
+    - lib/images/Iconos/Civil.svg
+    - lib/images/Iconos/Constitucional.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
