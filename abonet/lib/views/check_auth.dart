@@ -1,4 +1,6 @@
 import 'package:abonet/services/auth_service.dart';
+import 'package:abonet/views/home.dart';
+import 'package:abonet/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:abonet/routes/routes.dart' as route;
@@ -10,7 +12,7 @@ class CheckAuthScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: FutureBuilder(
-          future: authService.readToken(),
+          future: authService.readId(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (!snapshot.hasData) {
               return Text("Espere");
@@ -18,11 +20,23 @@ class CheckAuthScreen extends StatelessWidget {
             print(snapshot.data);
             if (snapshot.data == "") {
               Future.microtask(() {
-                Navigator.of(context).pushReplacementNamed(route.loginView);
+                Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                        pageBuilder: (_, __, ___) => Login(),
+                        transitionDuration: Duration(seconds: 0)));
+                //Navigator.of(context).pushReplacementNamed(route.loginView);
               });
             } else {
               Future.microtask(() {
-                Navigator.of(context).pushReplacementNamed(route.homeView);
+                //Navigator.of(context).pushReplacementNamed(route.homeView);
+                Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                        pageBuilder: (_, __, ___) => Home(
+                              title: 'Abonet',
+                            ),
+                        transitionDuration: Duration(seconds: 0)));
               });
             }
 
