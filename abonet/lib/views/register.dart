@@ -54,7 +54,8 @@ class ButtonsColumn extends StatelessWidget {
             () => Navigator.pushNamed(context, route.registerAbogView)),
         SizedBox(height: 10),
         TextButton(
-          onPressed: () => Navigator.pushNamed(context, route.loginView),
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, route.loginView),
           child: Text("¿Ya tienes una cuenta?"),
           style: TextButton.styleFrom(
               textStyle: TextStyle(color: Color(0xffa56d51))),

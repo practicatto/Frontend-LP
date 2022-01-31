@@ -148,7 +148,8 @@ class _LoginState extends State<Login> {
                             ElevatedButton(
                               onPressed: () {
                                 if (validateAndSave()) {
-                                  Navigator.pushNamed(context, route.homeView);
+                                  Navigator.pushReplacementNamed(
+                                      context, route.homeView);
                                 }
                               },
                               child: Text("Iniciar Sesión"),

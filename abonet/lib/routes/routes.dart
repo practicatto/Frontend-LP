@@ -1,3 +1,4 @@
+import 'package:abonet/views/check_auth.dart';
 import 'package:flutter/material.dart';
 
 //views
@@ -18,6 +19,7 @@ const String rankingsView = "ranking";
 const String ciudadesView = "ciudades";
 const String registerView = 'register';
 const String registerAbogView = 'registerAbog';
+const String checkingView = 'checking';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
@@ -40,6 +42,9 @@ Route<dynamic> controller(RouteSettings settings) {
     case chatView:
       return MaterialPageRoute(
           builder: (_) => Chat(title: 'Flutter Demo Home Page'));
+    case checkingView:
+      return MaterialPageRoute(
+          builder: (_) => CheckAuthScreen());
     default:
       throw ('Not defined route');
   }
