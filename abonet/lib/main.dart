@@ -19,11 +19,8 @@ class MyApp extends StatelessWidget {
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: ( _ ) => AuthService())
-      ],
-      child: MyAppContent()
-      );
+        providers: [ChangeNotifierProvider(create: (_) => AuthService())],
+        child: MyAppContent());
   }
 }
 
@@ -48,7 +45,7 @@ class MyAppContent extends StatelessWidget {
       ),
       home: Home(title: 'Abonet'),
       onGenerateRoute: route.controller,
-      initialRoute: route.homeView,
+      initialRoute: route.loginView,
     );
   }
 }

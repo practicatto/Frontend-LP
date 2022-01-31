@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService extends ChangeNotifier {
-  final _baseUrl = "localhost:8080/api/";
+  final _baseUrl = "http://10.0.2.2:8080/api/";
 
   final storage = new FlutterSecureStorage();
 
@@ -22,9 +22,7 @@ class AuthService extends ChangeNotifier {
       "calificacion": 5,
     };
     print(json.encode(registerData));
-    final resp = await http.post(url,
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(registerData));
+    final resp = await http.post(url, body: json.encode(registerData));
 
     final Map<String, dynamic> data = json.decode(resp.body);
 
