@@ -1,28 +1,17 @@
 import 'package:abonet/models/Categoria.dart';
-import 'package:abonet/ui/cardGeneric.dart';
+import 'package:abonet/services/api_service.dart';
+import 'package:abonet/ui/LoadingView.dart';
+import 'package:abonet/ui/cardCategoria.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Categorias extends StatefulWidget {
-  final List<Categoria> data = [
-    Categoria(1, "Leyes", "Leyes basicas"),
-    Categoria(2, "Civil", "Leyes para el pueblo"),
-    Categoria(3, "Accidente de transito", "Leyes para transito"),
-    Categoria(4, "Derecho Laboral", "Leyes para trabajadores"),
-    Categoria(5, "Derecho penal", "Leyes penales"),
-  ];
+class Categorias extends StatelessWidget {
+  Categorias({Key? key}) : super(key: key);
 
-  Categorias({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _CategoriasState createState() => _CategoriasState();
-}
-
-class _CategoriasState extends State<Categorias> {
-  List<Widget> generarCards() {
+  List<Widget> generarCards(List<Categoria> data) {
     List<Widget> lista = [];
-    widget.data.forEach((element) {
-      lista.add(CardGeneric(
+    data.forEach((element) {
+      lista.add(CardCategoria(
         title: element.nombre,
       ));
     });
@@ -31,25 +20,26 @@ class _CategoriasState extends State<Categorias> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: ListView(
-            children: <Widget>[
-              GridView.count(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
-                children: generarCards(),
-              )
-            ],
-          ),
-        ) // This trailing comma makes auto-formatting nicer for build methods.
+    final categorias = Provider.of<ApiService>(context);
+
+    if (categorias.isLoading) return LoadingView();
+
+    return Container(
+        child: Center(
+      child: ListView(
+        children: <Widget>[
+          GridView.count(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 2,
+            children: generarCards(categorias.categorias),
+          )
+        ],
+      ),
+    ) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 }

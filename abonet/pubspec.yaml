@@ -30,6 +30,7 @@ dependencies:
   provider: ^6.0.2
 
 dev_dependencies:
+  flutter_svg: ^1.0.3
   flutter_test:
     sdk: flutter
 
@@ -42,9 +43,18 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - lib/images/banderas/Guayaquil.png
+    - lib/images/banderas/Quito.png
+    - lib/images/banderas/Loja.png
+    - lib/images/banderas/Manta.png
+    - lib/images/banderas/Duran.png
+    - lib/images/banderas/Cuenca.png
+    - lib/images/Iconos/Administrativa.svg
+    - lib/images/Iconos/Bancario.svg
+    - lib/images/Iconos/BienesRaices.svg
+    - lib/images/Iconos/Civil.svg
+    - lib/images/Iconos/Constitucional.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

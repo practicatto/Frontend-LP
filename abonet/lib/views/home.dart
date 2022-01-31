@@ -1,3 +1,5 @@
+import 'package:abonet/views/Categorias.dart';
+import 'package:abonet/views/ciudades.dart';
 import 'package:flutter/material.dart';
 import 'package:abonet/routes/routes.dart' as route;
 
@@ -95,14 +97,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     ],
                   )),
               Center(
-                child: Text(
-                  'Ciudades',
-                ),
+                child: Ciudades(),
               ),
               Center(
-                child: Text(
-                  'Categorias',
-                ),
+                child: Categorias(),
               ),
             ],
           ),
