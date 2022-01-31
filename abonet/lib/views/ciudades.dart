@@ -1,15 +1,11 @@
 import 'package:abonet/models/Ciudad.dart';
-import 'package:abonet/ui/cardGeneric.dart';
+import 'package:abonet/services/auth_service.dart';
+import 'package:abonet/ui/LoadingView.dart';
+import 'package:abonet/ui/cardCiudadesc.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Ciudades extends StatefulWidget {
-  final List<Ciudad> ciudades = [
-    Ciudad(1, "Guayaquil"),
-    Ciudad(2, "Salinas"),
-    Ciudad(3, "Quito"),
-    Ciudad(4, "Manta")
-  ];
-
   Ciudades({Key? key, required this.title}) : super(key: key);
   final String title;
 
@@ -18,16 +14,20 @@ class Ciudades extends StatefulWidget {
 }
 
 class _CiudadesState extends State<Ciudades> {
-  List<Widget> generarCards() {
+  List<Widget> generarCards(List<Ciudad> data) {
     List<Widget> lista = [];
-    widget.ciudades.forEach((element) {
-      lista.add(CardGeneric(title: element.nombre));
+    data.forEach((element) {
+      lista.add(CardCiudad(title: element.nombre));
     });
     return lista;
   }
 
   @override
   Widget build(BuildContext context) {
+    final ciudades = Provider.of<AuthService>(context);
+
+    if (ciudades.isLoading) return LoadingView();
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -42,7 +42,7 @@ class _CiudadesState extends State<Ciudades> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 crossAxisCount: 2,
-                children: generarCards(),
+                children: generarCards(ciudades.ciudades),
               )
             ],
           ),

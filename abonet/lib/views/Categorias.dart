@@ -1,16 +1,11 @@
 import 'package:abonet/models/Categoria.dart';
-import 'package:abonet/ui/cardGeneric.dart';
+import 'package:abonet/ui/LoadingView.dart';
+import 'package:abonet/ui/cardCategoria.dart';
 import 'package:flutter/material.dart';
+import 'package:abonet/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class Categorias extends StatefulWidget {
-  final List<Categoria> data = [
-    Categoria(1, "Leyes", "Leyes basicas"),
-    Categoria(2, "Civil", "Leyes para el pueblo"),
-    Categoria(3, "Accidente de transito", "Leyes para transito"),
-    Categoria(4, "Derecho Laboral", "Leyes para trabajadores"),
-    Categoria(5, "Derecho penal", "Leyes penales"),
-  ];
-
   Categorias({Key? key, required this.title}) : super(key: key);
   final String title;
 
@@ -19,10 +14,10 @@ class Categorias extends StatefulWidget {
 }
 
 class _CategoriasState extends State<Categorias> {
-  List<Widget> generarCards() {
+  List<Widget> generarCards(List<Categoria> data) {
     List<Widget> lista = [];
-    widget.data.forEach((element) {
-      lista.add(CardGeneric(
+    data.forEach((element) {
+      lista.add(CardCategoria(
         title: element.nombre,
       ));
     });
@@ -31,6 +26,10 @@ class _CategoriasState extends State<Categorias> {
 
   @override
   Widget build(BuildContext context) {
+    final categorias = Provider.of<AuthService>(context);
+
+    if (categorias.isLoading) return LoadingView();
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -45,7 +44,7 @@ class _CategoriasState extends State<Categorias> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 crossAxisCount: 2,
-                children: generarCards(),
+                children: generarCards(categorias.categorias),
               )
             ],
           ),

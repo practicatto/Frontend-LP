@@ -26,7 +26,7 @@ class Ciudad {
   factory Ciudad.fromMap(Map<String, dynamic> map) {
     return Ciudad(
       map['id']?.toInt() ?? 0,
-      map['nombre'] ?? '',
+      map['ciudad'] ?? '',
     );
   }
 
