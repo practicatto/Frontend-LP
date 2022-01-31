@@ -148,41 +148,9 @@ class _LoginState extends State<Login> {
                                   )),
                             ),
                             SizedBox(height: 20),
-                            ElevatedButton(
-                              onPressed: () {
-                                if (validateAndSave()) {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-
-                                  //LoginService loginService =
-                                  //    new LoginService();
-                                  final authService = Provider.of<AuthService>(context, listen: false);
-                                  authService
-                                      .login(requestModel)
-                                      .then((_) {
-                                    setState(() {
-                                      isLoading = false;
-                                    });
-                                    Navigator.of(context).pushReplacementNamed(
-                                        route.homeView);
-                                  });
-                                }
-                              },
-                              child: Text("Iniciar Sesión"),
-                              style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 30),
-                                  primary: Theme.of(context)
-                                      .colorScheme
-                                      .primary, // background
-                                  onPrimary: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(35)),
-                                  minimumSize:
-                                      const Size.fromHeight(50) // foreground
-                                  ),
-                            ),
+                            loginButton(context, "Iniciar como Abogado"),
+                            SizedBox(height: 10),
+                            loginButton(context, "Iniciar como Cliente"),
                             SizedBox(height: 10),
                             ElevatedButton(
                               onPressed: () {
@@ -212,6 +180,37 @@ class _LoginState extends State<Login> {
           ),
         ) // This trailing comma makes auto-formatting nicer for build methods.
         );
+  }
+
+  ElevatedButton loginButton(BuildContext context, String text) {
+    return ElevatedButton(
+      onPressed: () {
+        if (validateAndSave()) {
+          setState(() {
+            isLoading = true;
+          });
+
+          //LoginService loginService =
+          //    new LoginService();
+          final authService = Provider.of<AuthService>(context, listen: false);
+          authService.login(requestModel).then((_) {
+            setState(() {
+              isLoading = false;
+            });
+            Navigator.of(context).pushReplacementNamed(route.homeView);
+          });
+        }
+      },
+      child: Text(text),
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+          primary: Theme.of(context).colorScheme.primary, // background
+          onPrimary: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+          minimumSize: const Size.fromHeight(50) // foreground
+          ),
+    );
   }
 
   bool validateAndSave() {
