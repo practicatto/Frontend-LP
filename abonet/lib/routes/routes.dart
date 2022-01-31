@@ -35,7 +35,7 @@ Route<dynamic> controller(RouteSettings settings) {
     case registerAbogView:
       return MaterialPageRoute(builder: (_) => RegistroAbogado());
     case loginView:
-      return MaterialPageRoute(builder: (_) => Login(title: 'Login'));
+      return MaterialPageRoute(builder: (_) => Login());
     case homeView:
       return MaterialPageRoute(builder: (_) => Home(title: 'Abonet'));
     case chatView:

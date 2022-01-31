@@ -1,11 +1,12 @@
 import 'package:abonet/models/login_model.dart';
 import 'package:abonet/routes/routes.dart' as route;
+import 'package:abonet/services/auth_service.dart';
 import 'package:abonet/services/login_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
-  Login({Key? key, required this.title}) : super(key: key);
-  final String title;
+  Login({Key? key}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
@@ -154,15 +155,17 @@ class _LoginState extends State<Login> {
                                     isLoading = true;
                                   });
 
-                                  LoginService loginService =
-                                      new LoginService();
-                                  loginService
+                                  //LoginService loginService =
+                                  //    new LoginService();
+                                  final authService = Provider.of<AuthService>(context, listen: false);
+                                  authService
                                       .login(requestModel)
-                                      .then((value) {
+                                      .then((_) {
                                     setState(() {
                                       isLoading = false;
-                                      print(requestModel.toJson());
                                     });
+                                    Navigator.of(context).pushReplacementNamed(
+                                        route.homeView);
                                   });
                                 }
                               },
