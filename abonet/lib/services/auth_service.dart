@@ -78,7 +78,22 @@ class AuthService extends ChangeNotifier {
         body: json.encode(registerData));
 
     final Map<String, dynamic> data = json.decode(resp.body);
-
     print(data);
+    if (data.containsKey("id")) {
+      await storage.write(key: "idUser", value: "${data["id"]}");
+      return "${data["id"]}";
+    } else {
+      return data["message"];
+    }
+  }
+
+  Future logout() async {
+    await storage.deleteAll();
+    return;
+  }
+
+  Future<String> readToken() async {
+    final token = await storage.read(key: "idUser") ?? "";
+    return token;
   }
 }
