@@ -28,6 +28,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var service = Provider.of<AuthService>(context);
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -79,7 +80,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 style: ElevatedButton.styleFrom(
                                   primary: Theme.of(context).primaryColor,
                                 ),
-                                onPressed: () {},
+                                onPressed: () async {
+                                  print(await service.readId());
+                                },
                                 child: Text("Buscar")),
                           ],
                         ),
