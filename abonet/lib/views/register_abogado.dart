@@ -112,6 +112,21 @@ class RegisterForm extends StatelessWidget {
               onChanged: (value) => registerForm.experiencia = value,
               decoration: InputDecorations.authInputDecoration(
                   hintText: "Trabajo en...", labelText: "Experiencia")),
+          SizedBox(height: 10),
+          TextFormField(
+              minLines: 1,
+              maxLines: 3,
+              onChanged: (value) => registerForm.direccion = value,
+              decoration: InputDecorations.authInputDecoration(
+                  hintText: "Vivo en la Av...", labelText: "Dirección")),
+          SizedBox(height: 20),
+          CiudadesDropDown(),
+          TextFormField(
+              minLines: 1,
+              maxLines: 3,
+              onChanged: (value) => registerForm.telefono = value,
+              decoration: InputDecorations.authInputDecoration(
+                  hintText: "0987456123", labelText: "Teléfono-Celular")),
           SizedBox(height: 20),
           CategCheckBox(
             apiService: apiService,
@@ -141,6 +156,12 @@ class RegisterForm extends StatelessWidget {
                         .then((value) async {
                       print(value);
                       CategCheckBox.createCatAbog(value!);
+                      await apiService.postUbicacion(
+                          CiudadesDropDown.ciudadElegida,
+                          registerForm.direccion,
+                          value);
+                      await apiService.postTelefono(
+                          registerForm.telefono, value);
                     });
 
                     Navigator.pushReplacementNamed(context, route.homeView);
@@ -236,6 +257,50 @@ class _CategCheckBoxState extends State<CategCheckBox> {
           },
         ),
       ],
+    );
+  }
+}
+
+class CiudadesDropDown extends StatefulWidget {
+  CiudadesDropDown({Key? key}) : super(key: key);
+  var ciudadesTotales = ApiService.ciudadesAll;
+  static String ciudadElegida = ApiService.ciudadesAll[0];
+
+  @override
+  State<CiudadesDropDown> createState() => _CiudadesDropDownState();
+}
+
+class _CiudadesDropDownState extends State<CiudadesDropDown> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Escoja la ciudad donde vive:",
+              style: TextStyle(fontSize: 16, color: Color(0xffa56d51))),
+          DropdownButton<String>(
+            value: CiudadesDropDown.ciudadElegida,
+            items: widget.ciudadesTotales
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value, style: TextStyle(fontSize: 18)),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                CiudadesDropDown.ciudadElegida = newValue!;
+              });
+            },
+            underline: Container(
+              height: 2,
+              color: Color(0xffeb9405),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
