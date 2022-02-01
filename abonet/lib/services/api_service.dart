@@ -102,4 +102,26 @@ class ApiService extends ChangeNotifier {
 
     return this.categorias;
   }
+
+  Future<void> postCategByAbog(List<String> categorias, String abogId) async {
+    print(categorias);
+    categorias.forEach((element) async {
+      print(element);
+      Map<String, dynamic> data = {
+        "categoria": int.parse(element),
+        "abogado": int.parse(abogId),
+      };
+      print(json.encode(data));
+      final url = Uri.parse("http://${_baseUrl}abogadoscategoria");
+      final resp = await http.post(url,
+          headers: {"Content-Type": "application/json"},
+          body: json.encode(data));
+      print(resp.body);
+      if (resp.statusCode == 500) {
+        throw Exception("Ocurrio un error al guardar la categoria del abogado");
+      } else {
+        print("Categoria guardada");
+      }
+    });
+  }
 }
