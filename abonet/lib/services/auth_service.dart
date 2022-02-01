@@ -22,7 +22,7 @@ class AuthService extends ChangeNotifier {
         headers: {"Content-Type": "application/json"}, body: json.encode(body));
 
     final Map<String, dynamic> data = json.decode(resp.body);
-    writeId(data, "cliente");
+    writeId(data, false);
   }
 
   Future<String?> createAbogado(String email, String password, String name,
@@ -44,7 +44,7 @@ class AuthService extends ChangeNotifier {
     print(resp.body);
     final Map<String, dynamic> data = json.decode(resp.body);
     if (resp.statusCode != 500)
-      return writeId(data, "abogado");
+      return writeId(data, true);
     else
       throw Exception(data["message"]);
   }
@@ -57,7 +57,20 @@ class AuthService extends ChangeNotifier {
         body: json.encode(requestModel.toJson()));
     if (response.statusCode == 200 || response.statusCode == 400) {
       final Map<String, dynamic> data = json.decode(response.body);
-      return writeId(data, "abogado");
+      return writeId(data, true);
+    } else {
+      throw Exception(response.body);
+    }
+  }
+  Future<String> loginClient(LoginRequestModel requestModel) async {
+    final Uri url = Uri.parse("$_baseUrl/usuarios/login");
+    print(requestModel.toJson());
+    final response = await http.post(url,
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(requestModel.toJson()));
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return writeId(data, false);
     } else {
       throw Exception(response.body);
     }
@@ -73,7 +86,7 @@ class AuthService extends ChangeNotifier {
     return token;
   }
 
-  Future<String> writeId(data, type) async {
+  Future<String> writeId(data, bool isAbogado) async {
     var returndata;
     if (data.containsKey("id")) {
       await storage.write(key: "idUser", value: "${data["id"]}");
@@ -81,7 +94,7 @@ class AuthService extends ChangeNotifier {
     } else {
       returndata = data["message"];
     }
-    if (type == "abogado") {
+    if (isAbogado) {
       await storage.write(key: "typeUser", value: "abogado");
     } else {
       await storage.write(key: "typeUser", value: "cliente");

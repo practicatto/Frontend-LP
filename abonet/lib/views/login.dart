@@ -143,9 +143,9 @@ class _LoginState extends State<Login> {
                               )),
                         ),
                         SizedBox(height: 20),
-                        loginButton(context, "Iniciar como Abogado"),
+                        loginButton(context, "Iniciar como Abogado", true),
                         SizedBox(height: 10),
-                        loginButton(context, "Iniciar como Cliente"),
+                        loginButton(context, "Iniciar como Cliente", false),
                         SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: () {
@@ -174,9 +174,10 @@ class _LoginState extends State<Login> {
         );
   }
 
-  ElevatedButton loginButton(BuildContext context, String text) {
+  ElevatedButton loginButton(
+      BuildContext context, String text, bool isAbogado) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (validateAndSave()) {
           setState(() {
             isLoading = true;
@@ -185,13 +186,13 @@ class _LoginState extends State<Login> {
           //LoginService loginService =
           //    new LoginService();
           final authService = Provider.of<AuthService>(context, listen: false);
-          authService.login(requestModel).then((_) {
-            setState(() {
-              isLoading = false;
-            });
-            print("Redirecting");
-            Navigator.of(context).pushReplacementNamed(route.homeView);
-          });
+          if (isAbogado) {
+            await authService.login(requestModel);
+          } else {
+            await authService.loginClient(requestModel);
+          }
+          setState(() => isLoading = false);
+          Navigator.of(context).pushReplacementNamed(route.homeView);
         }
       },
       child: Text(text),
