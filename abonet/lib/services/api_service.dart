@@ -22,23 +22,17 @@ class ApiService extends ChangeNotifier {
   }
 
   Future<List<Abogado>> getAbogadosCategoria(int id) async {
-    this.isLoading = true;
-    notifyListeners();
-
     final List<Abogado> aboInCategoria = [];
     final url = Uri.parse("http://${_baseUrl}abogados/by_categ?categoria=$id");
     final resp = await http.get(url);
 
     if (resp.statusCode == 200) {
       json
-          .decode(resp.body)
+          .decode(resp.body)[0]
           .forEach((item) => {aboInCategoria.add(Abogado.fromMap(item))});
     } else {
       throw Exception("Faild to get Abogados");
     }
-
-    this.isLoading = false;
-    notifyListeners();
     return aboInCategoria;
   }
 
@@ -101,5 +95,20 @@ class ApiService extends ChangeNotifier {
     notifyListeners();
 
     return this.categorias;
+  }
+
+  Future<List<Abogado>> getAbogadosCiudad(String nombre) async {
+    final List<Abogado> aboInCiudad = [];
+    final url = Uri.parse("http://${_baseUrl}abogados/byCiudad?ciudad=$nombre");
+    final resp = await http.get(url);
+
+    if (resp.statusCode == 200) {
+      json
+          .decode(resp.body)
+          .forEach((item) => {aboInCiudad.add(Abogado.fromMap(item))});
+    } else {
+      throw Exception("Faild to get Abogados");
+    }
+    return aboInCiudad;
   }
 }

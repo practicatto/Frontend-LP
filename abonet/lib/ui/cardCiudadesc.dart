@@ -1,14 +1,23 @@
+import 'package:abonet/models/Ciudad.dart';
+import 'package:abonet/views/SelectCiudadView.dart';
 import 'package:flutter/material.dart';
 
 class CardCiudad extends StatelessWidget {
-  final String title;
+  final Ciudad ciudad;
 
-  const CardCiudad({Key? key, required this.title}) : super(key: key);
+  const CardCiudad({Key? key, required this.ciudad}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (_, __, ___) =>
+                      SelectCiudad(ciudad: this.ciudad),
+                  transitionDuration: Duration(seconds: 0)));
+        },
         child: Container(
           width: double.infinity,
           height: 400,
@@ -16,10 +25,10 @@ class CardCiudad extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _ImageLogo(name: this.title),
+              _ImageLogo(name: this.ciudad.nombre),
               Center(
                   child: Text(
-                this.title,
+                this.ciudad.nombre,
                 style: _estiloTexto(),
               ))
             ],
@@ -33,8 +42,9 @@ class CardCiudad extends StatelessWidget {
       );
 
   BoxDecoration _boxDecoration(BuildContext context) => BoxDecoration(
-          color: Colors.grey,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(25),
+          border: Border.all(color: Theme.of(context).colorScheme.primary),
           boxShadow: [
             BoxShadow(
                 color: Colors.black12, offset: Offset(0, 7), blurRadius: 10)

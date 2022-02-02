@@ -11,7 +11,7 @@ class Ciudades extends StatelessWidget {
   List<Widget> generarCards(List<Ciudad> data) {
     List<Widget> lista = [];
     data.forEach((element) {
-      lista.add(CardCiudad(title: element.nombre));
+      lista.add(CardCiudad(ciudad: element));
     });
     return lista;
   }

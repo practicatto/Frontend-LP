@@ -11,7 +11,6 @@ class Abogado {
   Abogado(this.id, this.correo, this.nombre, this.descripcion, this.experiencia,
       this.calificacion);
 
-
   Abogado copyWith({
     int? id,
     String? correo,
@@ -45,7 +44,7 @@ class Abogado {
     return Abogado(
       map['id']?.toInt() ?? 0,
       map['correo'] ?? '',
-      map['nombre'] ?? '',
+      map['nombre_completo'] ?? '',
       map['descripcion'] ?? '',
       map['experiencia'] ?? '',
       map['calificacion']?.toInt() ?? 0,
@@ -54,7 +53,8 @@ class Abogado {
 
   String toJson() => json.encode(toMap());
 
-  factory Abogado.fromJson(String source) => Abogado.fromMap(json.decode(source));
+  factory Abogado.fromJson(String source) =>
+      Abogado.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -64,23 +64,23 @@ class Abogado {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is Abogado &&
-      other.id == id &&
-      other.correo == correo &&
-      other.nombre == nombre &&
-      other.descripcion == descripcion &&
-      other.experiencia == experiencia &&
-      other.calificacion == calificacion;
+        other.id == id &&
+        other.correo == correo &&
+        other.nombre == nombre &&
+        other.descripcion == descripcion &&
+        other.experiencia == experiencia &&
+        other.calificacion == calificacion;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      correo.hashCode ^
-      nombre.hashCode ^
-      descripcion.hashCode ^
-      experiencia.hashCode ^
-      calificacion.hashCode;
+        correo.hashCode ^
+        nombre.hashCode ^
+        descripcion.hashCode ^
+        experiencia.hashCode ^
+        calificacion.hashCode;
   }
 }
