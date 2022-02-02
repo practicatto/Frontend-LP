@@ -11,9 +11,10 @@ class Ranking extends StatefulWidget {
 
   List<Widget> generarRanking(List<Abogado> data) {
     List<Widget> rankingAbonet = [];
-    data.forEach((element) {
+    data.asMap().forEach((index, element) {
       rankingAbonet.add(CardRanking(
         abogado: element,
+        index: index,
       ));
     });
     return rankingAbonet;
@@ -30,7 +31,14 @@ class _RankingState extends State<Ranking> {
     if (service.isLoading) return LoadingView();
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title: Text(
+            'Ranking',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
+          iconTheme:
+              IconThemeData(color: Theme.of(context).colorScheme.primary),
         ),
         body: Center(
           child: ListView(

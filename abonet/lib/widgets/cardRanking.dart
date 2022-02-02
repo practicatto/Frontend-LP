@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class CardRanking extends StatelessWidget {
   final Abogado abogado;
+  final int index;
   Widget _starsForRatings(context) {
     List<Widget> list = [];
     for (int i = 0; i < abogado.calificacion; i++) {
@@ -24,7 +25,8 @@ class CardRanking extends StatelessWidget {
     );
   }
 
-  const CardRanking({Key? key, required this.abogado}) : super(key: key);
+  const CardRanking({Key? key, required this.abogado, required this.index})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,6 +35,18 @@ class CardRanking extends StatelessWidget {
             child: Padding(
                 padding: EdgeInsets.all(10),
                 child: Row(children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    child: Center(
+                        child: Text(
+                      (index + 1).toString(),
+                      style: TextStyle(color: Colors.white),
+                    )),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Container(
