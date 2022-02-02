@@ -190,6 +190,7 @@ class RegisterForm extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class CategCheckBox extends StatefulWidget {
   var apiService;
   static List<String> categoriasEscogidas = [];
@@ -261,6 +262,7 @@ class _CategCheckBoxState extends State<CategCheckBox> {
   }
 }
 
+// ignore: must_be_immutable
 class CiudadesDropDown extends StatefulWidget {
   CiudadesDropDown({Key? key}) : super(key: key);
   var ciudadesTotales = ApiService.ciudadesAll;

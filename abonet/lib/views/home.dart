@@ -2,7 +2,6 @@ import 'package:abonet/services/api_service.dart';
 import 'package:abonet/services/auth_service.dart';
 import 'package:abonet/views/Categorias.dart';
 import 'package:abonet/views/ciudades.dart';
-import 'package:abonet/widgets/abog_info.dart';
 import 'package:flutter/material.dart';
 import 'package:abonet/routes/routes.dart' as route;
 import 'package:provider/provider.dart';
@@ -17,8 +16,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   int _selectedIndex = 0;
+  // ignore: unused_field
   late TabController _tabController;
 
+  // ignore: unused_field
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 

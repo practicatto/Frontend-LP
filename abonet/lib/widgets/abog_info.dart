@@ -19,7 +19,6 @@ class AbogInfo extends StatelessWidget {
               AsyncSnapshot<Map<String, dynamic>> snapshot) {
             if (snapshot.hasData) {
               return MainContainer(snapshot.data!);
-              ;
             } else if (snapshot.hasError) {
               return Column(
                 children: [
