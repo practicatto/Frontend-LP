@@ -1,11 +1,23 @@
+import 'package:abonet/models/Abogado.dart';
 import 'package:abonet/services/api_service.dart';
 import 'package:abonet/ui/LoadingView.dart';
+import 'package:abonet/widgets/cardRanking.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Ranking extends StatefulWidget {
   Ranking({Key? key, required this.title}) : super(key: key);
   final String title;
+
+  List<Widget> generarRanking(List<Abogado> data) {
+    List<Widget> rankingAbonet = [];
+    data.forEach((element) {
+      rankingAbonet.add(CardRanking(
+        abogado: element,
+      ));
+    });
+    return rankingAbonet;
+  }
 
   @override
   _RankingState createState() => _RankingState();
@@ -23,10 +35,7 @@ class _RankingState extends State<Ranking> {
         body: Center(
           child: ListView(
             children: <Widget>[
-              Text(
-                'Holaaa ${service.ranking}',
-                style: TextStyle(fontSize: 48),
-              ),
+              ...widget.generarRanking(service.ranking),
             ],
           ),
         ) // This trailing comma makes auto-formatting nicer for build methods.

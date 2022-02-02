@@ -26,7 +26,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<ExpansionItem> _faq = [
     ExpansionItem("¿Qué es Abonet?",
         "Abonet es una app que permite al usuario encontrar rápidamente un asesor legal especializado que brinde soluciones a sus consultas legales. Agenda tu cita con el abogado de preferencia"),
-    ExpansionItem("¿Cómo funciona?", "Contacta a tu abogado de preferencia"),
+    ExpansionItem("¿Cómo funciona?",
+        "Contacta a tu abogado de preferencia haciendo clic en su perfil, además podrás calificarlo y comentar sobre su servicio."),
     ExpansionItem("¿Cómo seleccionar un asesor jurídico?",
         "Selecciona un asesor de acuerdo a su experiencia y disponibilidad"),
   ];
