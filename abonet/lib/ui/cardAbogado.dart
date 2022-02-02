@@ -1,5 +1,7 @@
 import 'package:abonet/models/Abogado.dart';
+import 'package:abonet/widgets/abog_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class cardAbogado extends StatelessWidget {
   final Abogado abogado;
@@ -9,7 +11,13 @@ class cardAbogado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            PageRouteBuilder(
+                pageBuilder: (_, __, ___) => AbogInfo(abogado.id),
+                transitionDuration: Duration(seconds: 0)));
+      },
       child: Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -19,11 +27,37 @@ class cardAbogado extends StatelessWidget {
                 child: Icon(Icons.person),
               ),
               dataAbogado(abogado: this.abogado),
+              estrellas(star: this.abogado.calificacion)
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class estrellas extends StatelessWidget {
+  final double star;
+  const estrellas({
+    required this.star,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: Container(
+      alignment: Alignment.centerRight,
+      child: RatingBarIndicator(
+        itemCount: 5,
+        itemSize: 28,
+        rating: star,
+        itemBuilder: (context, index) => Icon(
+          Icons.star,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      ),
+    ));
   }
 }
 

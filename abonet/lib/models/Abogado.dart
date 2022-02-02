@@ -6,7 +6,7 @@ class Abogado {
   String nombre;
   String descripcion;
   String experiencia;
-  int calificacion;
+  double calificacion;
 
   Abogado(this.id, this.correo, this.nombre, this.descripcion, this.experiencia,
       this.calificacion);
@@ -17,7 +17,7 @@ class Abogado {
     String? nombre,
     String? descripcion,
     String? experiencia,
-    int? calificacion,
+    double? calificacion,
   }) {
     return Abogado(
       id ?? this.id,
@@ -47,7 +47,7 @@ class Abogado {
       map['nombre_completo'] ?? '',
       map['descripcion'] ?? '',
       map['experiencia'] ?? '',
-      map['calificacion']?.toInt() ?? 0,
+      map['calificacion']?.toDouble() ?? 0,
     );
   }
 

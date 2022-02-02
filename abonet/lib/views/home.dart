@@ -1,15 +1,12 @@
 import 'package:abonet/services/api_service.dart';
 import 'package:abonet/services/auth_service.dart';
 import 'package:abonet/views/Categorias.dart';
-import 'package:abonet/views/chat.dart';
 import 'package:abonet/widgets/buildMenuItem.dart';
 import 'package:abonet/widgets/expansionFAQ.dart';
 import 'package:abonet/views/ciudades.dart';
-import 'package:abonet/widgets/abog_info.dart';
 import 'package:abonet/widgets/circleTabIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:abonet/routes/routes.dart' as route;
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -22,6 +19,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   int _selectedIndex = 0;
+  // ignore: unused_field
   late TabController _tabController;
   List<ExpansionItem> _faq = [
     ExpansionItem("¿Qué es Abonet?",
@@ -32,6 +30,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         "Selecciona un asesor de acuerdo a su experiencia y disponibilidad"),
   ];
 
+  // ignore: unused_field
   static const TextStyle optionStyle =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
 
