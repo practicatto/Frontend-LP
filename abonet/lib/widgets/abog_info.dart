@@ -3,31 +3,67 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AbogInfo extends StatelessWidget {
-  final String abogadoId;
+  final int abogadoId;
   const AbogInfo(this.abogadoId, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final apiService = Provider.of<ApiService>(context);
-    return FutureBuilder(
-        future: apiService.getAbogadoById(abogadoId),
-        builder: (BuildContext context,
-            AsyncSnapshot<Map<String, dynamic>> snapshot) {
-          if (!snapshot.hasData) {
-            return Text("Espere");
-          } else
-            return mainWidget(snapshot.data);
-        });
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Perfil"),
+      ),
+      body: FutureBuilder<Map<String, dynamic>>(
+          future: apiService.getAbogadoById(abogadoId),
+          builder: (BuildContext context,
+              AsyncSnapshot<Map<String, dynamic>> snapshot) {
+            if (snapshot.hasData) {
+              return MainContainer(snapshot.data!);
+              ;
+            } else if (snapshot.hasError) {
+              return Column(
+                children: [
+                  const Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 60,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Text('Error: ${snapshot.error}'),
+                  )
+                ],
+              );
+            } else {
+              return Center(
+                child: SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          }),
+    );
   }
+}
 
-  Center mainWidget(data) {
-    return Center(
-        child: Column(children: [
-      Text("${data["nombre_completo"]}",
-          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-      Icon(Icons.account_box, size: 120),
-      listProfAttrs(data)
-    ]));
+class MainContainer extends StatelessWidget {
+  final Map<String, dynamic> data;
+
+  const MainContainer(this.data, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+          child: Column(children: [
+        Text("${data["nombre_completo"]}",
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+        Icon(Icons.account_box, size: 120),
+        listProfAttrs(data)
+      ])),
+    );
   }
 
   Widget listProfAttrs(data) {
@@ -35,6 +71,7 @@ class AbogInfo extends StatelessWidget {
         data["categoria"].map((cat) => cat["nombre"]).toList().join(", ");
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       profAttrUniq("Ciudad", data["ubicacion"][0]["ciudad"]),
+      profAttrUniq("Direccion", data["ubicacion"][0]["direccion"]),
       profAttrUniq("Categorías", categoriasNombres),
       profAttrUniq("Mail", data["correo"]),
       profAttrUniq("Celular", data["telefono"][0]["telefono"]),

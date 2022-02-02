@@ -1,4 +1,5 @@
 import 'package:abonet/models/Abogado.dart';
+import 'package:abonet/widgets/abog_info.dart';
 import 'package:flutter/material.dart';
 
 class cardAbogado extends StatelessWidget {
@@ -9,7 +10,13 @@ class cardAbogado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            PageRouteBuilder(
+                pageBuilder: (_, __, ___) => AbogInfo(abogado.id),
+                transitionDuration: Duration(seconds: 0)));
+      },
       child: Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -19,11 +26,28 @@ class cardAbogado extends StatelessWidget {
                 child: Icon(Icons.person),
               ),
               dataAbogado(abogado: this.abogado),
+              estrellas()
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class estrellas extends StatelessWidget {
+  const estrellas({
+    Key? key,
+  }) : super(key: key);
+
+  List<Widget> generarEstrellas() {
+    List<Widget> estellas = [];
+    return estellas;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
 

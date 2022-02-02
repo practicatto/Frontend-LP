@@ -33,9 +33,12 @@ class _SelectCategoriaState extends State<SelectCategoria> {
                     AsyncSnapshot<List<Abogado>> snapshot) {
                   List<Widget> abogados = [];
                   if (snapshot.hasData) {
-                    final data = snapshot.data;
-                    abogados =
-                        data!.map((e) => cardAbogado(abogado: e)).toList();
+                    final data = snapshot.data!;
+                    abogados = [];
+
+                    data.forEach((element) {
+                      abogados.add(cardAbogado(abogado: element));
+                    });
                   } else if (snapshot.hasError) {
                     abogados = [
                       const Icon(
@@ -57,7 +60,7 @@ class _SelectCategoriaState extends State<SelectCategoria> {
                       )
                     ];
                   }
-                  return Center(child: abogados[0]);
+                  return Column(children: abogados);
                 })
           ],
         ),
