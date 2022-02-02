@@ -186,12 +186,53 @@ class _LoginState extends State<Login> {
           //    new LoginService();
           final authService = Provider.of<AuthService>(context, listen: false);
           if (isAbogado) {
-            await authService.login(requestModel);
+            try {
+              await authService.login(requestModel);
+              Navigator.of(context).pushReplacementNamed(route.homeView);
+            } on Exception catch (_) {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Error de autenticacion'),
+                  content: const Text('Correo o contraseña erroneo'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            }
           } else {
-            await authService.loginClient(requestModel);
+            try {
+              await authService.login(requestModel);
+              Navigator.of(context).pushReplacementNamed(route.homeView);
+            } on Exception catch (_) {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Error de autenticacion'),
+                  content: const Text('Correo o contraseña erroneo'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            }
           }
           setState(() => isLoading = false);
-          Navigator.of(context).pushReplacementNamed(route.homeView);
         }
       },
       child: Text(text),
