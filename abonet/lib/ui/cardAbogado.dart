@@ -48,16 +48,14 @@ class estrellas extends StatelessWidget {
     return Expanded(
         child: Container(
       alignment: Alignment.centerRight,
-      child: RatingBar.builder(
+      child: RatingBarIndicator(
         itemCount: 5,
         itemSize: 28,
-        allowHalfRating: true,
-        initialRating: star,
+        rating: star,
         itemBuilder: (context, index) => Icon(
           Icons.star,
           color: Theme.of(context).colorScheme.secondary,
         ),
-        onRatingUpdate: (value) => null,
       ),
     ));
   }
