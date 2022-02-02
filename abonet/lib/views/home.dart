@@ -1,7 +1,9 @@
+import 'package:abonet/services/auth_service.dart';
 import 'package:abonet/views/Categorias.dart';
 import 'package:abonet/views/ciudades.dart';
 import 'package:flutter/material.dart';
 import 'package:abonet/routes/routes.dart' as route;
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key, required this.title}) : super(key: key);
@@ -26,6 +28,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var service = Provider.of<AuthService>(context);
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -77,7 +80,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 style: ElevatedButton.styleFrom(
                                   primary: Theme.of(context).primaryColor,
                                 ),
-                                onPressed: () {},
+                                onPressed: () async {
+                                  print(await service.readId());
+                                },
                                 child: Text("Buscar")),
                           ],
                         ),
@@ -94,6 +99,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         "¿Qué es Abonet?",
                         style: TextStyle(fontSize: 20),
                       ),
+                      TextButton(
+                          style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                              primary: Colors.white),
+                          onPressed: () async {
+                            var authService = Provider.of<AuthService>(context,
+                                listen: false);
+                            await authService.logout();
+                            while (Navigator.canPop(context)) {
+                              Navigator.pop(context);
+                            }
+                            Navigator.of(context).pushNamed(route.loginView);
+                          },
+                          child: Text("Logout"))
                     ],
                   )),
               Center(

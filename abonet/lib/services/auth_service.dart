@@ -10,6 +10,21 @@ class AuthService extends ChangeNotifier {
 
   final storage = new FlutterSecureStorage();
 
+  Future<String?> createUser(String email, String password, String name) async {
+    final url = Uri.parse("$_baseUrl/usuarios/");
+
+    final Map<String, dynamic> body = {
+      "correo": email,
+      "contrasena": password,
+      "nombre_completo": name,
+    };
+    final resp = await http.post(url,
+        headers: {"Content-Type": "application/json"}, body: json.encode(body));
+
+    final Map<String, dynamic> data = json.decode(resp.body);
+    writeId(data, false);
+  }
+
   Future<String?> createAbogado(String email, String password, String name,
       String? descripcion, String? experiencia) async {
     final url = Uri.parse("$_baseUrl/abogados/register");
@@ -28,8 +43,10 @@ class AuthService extends ChangeNotifier {
         body: json.encode(registerData));
     print(resp.body);
     final Map<String, dynamic> data = json.decode(resp.body);
-
-    return writeId(data);
+    if (resp.statusCode != 500)
+      return writeId(data, true);
+    else
+      throw Exception(data["message"]);
   }
 
   Future<String> login(LoginRequestModel requestModel) async {
@@ -40,7 +57,20 @@ class AuthService extends ChangeNotifier {
         body: json.encode(requestModel.toJson()));
     if (response.statusCode == 200 || response.statusCode == 400) {
       final Map<String, dynamic> data = json.decode(response.body);
-      return writeId(data);
+      return writeId(data, true);
+    } else {
+      throw Exception(response.body);
+    }
+  }
+  Future<String> loginClient(LoginRequestModel requestModel) async {
+    final Uri url = Uri.parse("$_baseUrl/usuarios/login");
+    print(requestModel.toJson());
+    final response = await http.post(url,
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(requestModel.toJson()));
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return writeId(data, false);
     } else {
       throw Exception(response.body);
     }
@@ -56,12 +86,19 @@ class AuthService extends ChangeNotifier {
     return token;
   }
 
-  Future<String> writeId(data) async {
+  Future<String> writeId(data, bool isAbogado) async {
+    var returndata;
     if (data.containsKey("id")) {
       await storage.write(key: "idUser", value: "${data["id"]}");
-      return "${data["id"]}";
+      returndata = "${data["id"]}";
     } else {
-      return data["message"];
+      returndata = data["message"];
     }
+    if (isAbogado) {
+      await storage.write(key: "typeUser", value: "abogado");
+    } else {
+      await storage.write(key: "typeUser", value: "cliente");
+    }
+    return returndata;
   }
 }

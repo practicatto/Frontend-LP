@@ -12,6 +12,14 @@ class ApiService extends ChangeNotifier {
   final List<Categoria> categorias = [];
   final List<Ciudad> ciudades = [];
   final List<Abogado> abogados = [];
+  static List<String> ciudadesAll = [
+    "Cuenca",
+    "Duran",
+    "Guayaquil",
+    "Loja",
+    "Quito",
+    "Manta"
+  ];
   bool isLoading = true;
   final storage = new FlutterSecureStorage();
 
@@ -110,5 +118,63 @@ class ApiService extends ChangeNotifier {
       throw Exception("Faild to get Abogados");
     }
     return aboInCiudad;
+  }
+
+  Future<void> postCategByAbog(List<String> categorias, String abogId) async {
+    print(categorias);
+    categorias.forEach((element) async {
+      print(element);
+      Map<String, dynamic> data = {
+        "categoria": int.parse(element),
+        "abogado": int.parse(abogId),
+      };
+      print(json.encode(data));
+      final url = Uri.parse("http://${_baseUrl}abogadoscategoria");
+      final resp = await http.post(url,
+          headers: {"Content-Type": "application/json"},
+          body: json.encode(data));
+      print(resp.body);
+      if (resp.statusCode == 500) {
+        throw Exception("Ocurrio un error al guardar la categoria del abogado");
+      } else {
+        print("Categoria guardada");
+      }
+    });
+  }
+
+  Future<void> postUbicacion(
+      String ciudad, String direccion, String abogadoId) async {
+    Map<String, dynamic> data = {
+      "ciudad": ciudad,
+      "direccion": direccion,
+      "abogadoId": int.parse(abogadoId),
+    };
+    print(json.encode(data));
+    final url = Uri.parse("http://${_baseUrl}ubicacion/");
+    final resp = await http.post(url,
+        headers: {"Content-Type": "application/json"}, body: json.encode(data));
+    print(resp.body);
+    if (resp.statusCode == 500) {
+      throw Exception("Ocurrio un error al guardar la ubicacion del abogado");
+    } else {
+      print("Ubicacion guardada");
+    }
+  }
+
+  Future<void> postTelefono(String telefono, String abogadoId) async {
+    Map<String, dynamic> data = {
+      "telefono": telefono,
+      "abogadoId": int.parse(abogadoId),
+    };
+    print(json.encode(data));
+    final url = Uri.parse("http://${_baseUrl}telefono/");
+    final resp = await http.post(url,
+        headers: {"Content-Type": "application/json"}, body: json.encode(data));
+    if (resp.statusCode == 500) {
+      throw Exception("Ocurrio un error al guardar el telefono del abogado");
+    } else {
+      print(resp.body);
+      print("Telefono guardado");
+    }
   }
 }

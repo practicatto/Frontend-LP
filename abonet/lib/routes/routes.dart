@@ -1,4 +1,5 @@
 import 'package:abonet/views/check_auth.dart';
+import 'package:abonet/views/register_user.dart';
 import 'package:flutter/material.dart';
 
 //views
@@ -15,6 +16,7 @@ const String chatView = 'chat';
 const String rankingsView = "ranking";
 const String registerView = 'register';
 const String registerAbogView = 'registerAbog';
+const String registerUserView = 'registerUser';
 const String checkingView = 'checking';
 
 Route<dynamic> controller(RouteSettings settings) {
@@ -25,6 +27,8 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => Register());
     case registerAbogView:
       return MaterialPageRoute(builder: (_) => RegistroAbogado());
+    case registerUserView:
+      return MaterialPageRoute(builder: (_) => RegistroUsuario());
     case loginView:
       return MaterialPageRoute(builder: (_) => Login());
     case homeView:

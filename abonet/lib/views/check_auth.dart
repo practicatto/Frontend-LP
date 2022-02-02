@@ -3,12 +3,12 @@ import 'package:abonet/views/home.dart';
 import 'package:abonet/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:abonet/routes/routes.dart' as route;
 
 class CheckAuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
+    authService.logout();
     return Scaffold(
       body: Center(
         child: FutureBuilder(

@@ -51,7 +51,7 @@ class ButtonsColumn extends StatelessWidget {
             () => Navigator.pushNamed(context, route.registerAbogView)),
         SizedBox(height: 10),
         ButtonWidget(Color(0xffeb9405), "Registro de cliente",
-            () => Navigator.pushNamed(context, route.registerAbogView)),
+            () => Navigator.pushNamed(context, route.registerUserView)),
         SizedBox(height: 10),
         TextButton(
           onPressed: () =>
