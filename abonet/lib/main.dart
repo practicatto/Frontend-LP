@@ -10,7 +10,7 @@ void main() {
   runApp(MyApp());
 }
 
-Color mainColor = Color(0xFF1c243c);
+Color mainColor = Color(0xff0A0E17);
 Color acceColor = Color(0xFFeb9405);
 
 class MyApp extends StatelessWidget {
@@ -39,11 +39,11 @@ class MyAppContent extends StatelessWidget {
       theme: ThemeData(
         textTheme: const TextTheme(
           headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-          headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+          headline6: TextStyle(fontSize: 28.0, fontFamily: 'Roboto'),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Roboto'),
         ),
-        colorScheme: ColorScheme.fromSwatch()
-            .copyWith(secondary: acceColor, primary: mainColor),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: acceColor, primary: mainColor, background: Colors.white),
       ),
       home: Home(title: 'Abonet'),
       onGenerateRoute: route.controller,
