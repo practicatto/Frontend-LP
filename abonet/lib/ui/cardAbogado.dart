@@ -1,6 +1,7 @@
 import 'package:abonet/models/Abogado.dart';
 import 'package:abonet/widgets/abog_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class cardAbogado extends StatelessWidget {
   final Abogado abogado;
@@ -26,7 +27,7 @@ class cardAbogado extends StatelessWidget {
                 child: Icon(Icons.person),
               ),
               dataAbogado(abogado: this.abogado),
-              estrellas()
+              estrellas(star: this.abogado.calificacion)
             ],
           ),
         ),
@@ -36,18 +37,27 @@ class cardAbogado extends StatelessWidget {
 }
 
 class estrellas extends StatelessWidget {
+  final double star;
   const estrellas({
+    required this.star,
     Key? key,
   }) : super(key: key);
 
-  List<Widget> generarEstrellas() {
-    List<Widget> estellas = [];
-    return estellas;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Expanded(
+        child: Container(
+      alignment: Alignment.centerRight,
+      child: RatingBarIndicator(
+        itemCount: 5,
+        itemSize: 28,
+        rating: star,
+        itemBuilder: (context, index) => Icon(
+          Icons.star,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      ),
+    ));
   }
 }
 

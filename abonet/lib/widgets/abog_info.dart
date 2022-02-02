@@ -1,5 +1,6 @@
 import 'package:abonet/services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class AbogInfo extends StatelessWidget {
@@ -61,7 +62,14 @@ class MainContainer extends StatelessWidget {
     return Scaffold(
       body: ListView(
         shrinkWrap: true,
-        children: [listProfAttrs(data), writeComment()],
+        children: [
+          listProfAttrs(data),
+          estrellas(data["calificacion"].toDouble()),
+          SizedBox(
+            height: 20,
+          ),
+          writeComment()
+        ],
       ),
     );
   }
@@ -91,7 +99,7 @@ class MainContainer extends StatelessWidget {
           "Celular",
           data.containsKey("telefono") && data["telefono"].length > 0
               ? data["telefono"][0]["telefono"]
-              : ""),
+              : "Sin telefono"),
     ]);
   }
 
@@ -158,5 +166,29 @@ class MainContainer extends StatelessWidget {
     return Row(
         children: List.filled(4, Icon(Icons.star_outlined)) +
             [Icon(Icons.star_outline)]);
+  }
+
+  Widget estrellas(double calificacion) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Calificacion: ",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        Column(
+          children: [
+            RatingBarIndicator(
+              itemCount: 5,
+              itemSize: 28,
+              rating: calificacion,
+              itemBuilder: (context, index) => Icon(
+                Icons.star,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+            Text(calificacion.toString(), style: TextStyle(fontSize: 12))
+          ],
+        ),
+      ],
+    );
   }
 }
