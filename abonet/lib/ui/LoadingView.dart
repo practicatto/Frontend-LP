@@ -6,9 +6,6 @@ class LoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Categorias"),
-      ),
       body: Center(
         child: CircularProgressIndicator(
           color: Theme.of(context).colorScheme.secondary,

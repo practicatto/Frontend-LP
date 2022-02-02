@@ -12,7 +12,7 @@ class Categorias extends StatelessWidget {
     List<Widget> lista = [];
     data.forEach((element) {
       lista.add(CardCategoria(
-        title: element.nombre,
+        categoria: element,
       ));
     });
     return lista;
