@@ -41,6 +41,10 @@ class MyAppContent extends StatelessWidget {
           headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
           headline6: TextStyle(fontSize: 28.0, fontFamily: 'Roboto'),
           bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Roboto'),
+          caption: TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+          ),
         ),
         colorScheme: ColorScheme.fromSwatch().copyWith(
             secondary: acceColor, primary: mainColor, background: Colors.white),

@@ -29,6 +29,7 @@ class _RankingState extends State<Ranking> {
   Widget build(BuildContext context) {
     final service = Provider.of<ApiService>(context);
     if (service.isLoading) return LoadingView();
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
