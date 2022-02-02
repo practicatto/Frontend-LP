@@ -66,14 +66,28 @@ class MainContainer extends StatelessWidget {
   }
 
   Widget listProfAttrs(data) {
-    var categoriasNombres =
-        data["categoria"].map((cat) => cat["nombre"]).toList().join(", ");
+    print(data["categoria"]);
+    var categoriasNombres = data.containsKey("categoria")
+        ? data["categoria"].map((cat) => cat["nombre"]).toList().join(", ")
+        : "";
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      profAttrUniq("Ciudad", data["ubicacion"][0]["ciudad"]),
-      profAttrUniq("Direccion", data["ubicacion"][0]["direccion"]),
+      profAttrUniq(
+          "Ciudad",
+          data.containsKey("ubicacion") && data["ubicacion"].length > 0
+              ? data["ubicacion"][0]["ciudad"]
+              : ""),
+      profAttrUniq(
+          "Direccion",
+          data.containsKey("ubicacion") && data["ubicacion"].length > 0
+              ? data["ubicacion"][0]["direccion"]
+              : ""),
       profAttrUniq("Categorías", categoriasNombres),
       profAttrUniq("Mail", data["correo"]),
-      profAttrUniq("Celular", data["telefono"][0]["telefono"]),
+      profAttrUniq(
+          "Celular",
+          data.containsKey("telefono") && data["telefono"].length > 0
+              ? data["telefono"][0]["telefono"]
+              : ""),
     ]);
   }
 
