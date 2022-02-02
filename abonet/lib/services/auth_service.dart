@@ -58,7 +58,7 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200 || response.statusCode == 400) {
       final Map<String, dynamic> data = json.decode(response.body);
       var returnData = writeId(data, true);
-      print(returnData);
+      print("Esto es el local: $returnData");
       return returnData;
     } else {
       throw Exception(response.body);
