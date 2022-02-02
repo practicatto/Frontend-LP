@@ -12,6 +12,7 @@ class ApiService extends ChangeNotifier {
   final List<Categoria> categorias = [];
   final List<Ciudad> ciudades = [];
   final List<Abogado> abogados = [];
+  final List<Abogado> ranking = [];
   static List<String> ciudadesAll = [
     "Cuenca",
     "Duran",
@@ -27,6 +28,7 @@ class ApiService extends ChangeNotifier {
     this.getCategorias();
     this.getAbogados();
     this.getCiudades();
+    this.getRanking();
   }
 
   Future<List<Abogado>> getAbogadosCategoria(int id) async {
@@ -94,6 +96,23 @@ class ApiService extends ChangeNotifier {
     notifyListeners();
 
     return this.ciudades;
+  }
+
+  Future<List<Abogado>> getRanking() async {
+    this.isLoading = true;
+    notifyListeners();
+    final url = Uri.parse("http://${_baseUrl}abogados/ranking");
+    final resp = await http.get(url);
+    if (resp.statusCode == 200) {
+      json
+          .decode(resp.body)
+          .forEach((item) => {ranking.add(Abogado.fromMap(item))});
+    } else {
+      throw Exception("Faild to get ranking");
+    }
+    this.isLoading = false;
+    notifyListeners();
+    return this.ranking;
   }
 
   Future<List<Categoria>> getCategorias() async {

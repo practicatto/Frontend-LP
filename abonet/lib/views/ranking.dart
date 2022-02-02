@@ -1,4 +1,7 @@
+import 'package:abonet/services/api_service.dart';
+import 'package:abonet/ui/LoadingView.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Ranking extends StatefulWidget {
   Ranking({Key? key, required this.title}) : super(key: key);
@@ -11,6 +14,8 @@ class Ranking extends StatefulWidget {
 class _RankingState extends State<Ranking> {
   @override
   Widget build(BuildContext context) {
+    final service = Provider.of<ApiService>(context);
+    if (service.isLoading) return LoadingView();
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -19,7 +24,8 @@ class _RankingState extends State<Ranking> {
           child: ListView(
             children: <Widget>[
               Text(
-                'Ranking',
+                'Holaaa ${service.ranking}',
+                style: TextStyle(fontSize: 48),
               ),
             ],
           ),
