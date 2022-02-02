@@ -1,6 +1,8 @@
+import 'package:abonet/services/api_service.dart';
 import 'package:abonet/services/auth_service.dart';
 import 'package:abonet/views/Categorias.dart';
 import 'package:abonet/views/ciudades.dart';
+import 'package:abonet/widgets/abog_info.dart';
 import 'package:flutter/material.dart';
 import 'package:abonet/routes/routes.dart' as route;
 import 'package:provider/provider.dart';
@@ -29,6 +31,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var service = Provider.of<AuthService>(context);
+    var apiService = Provider.of<ApiService>(context);
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -81,7 +84,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   primary: Theme.of(context).primaryColor,
                                 ),
                                 onPressed: () async {
-                                  print(await service.readId());
+                                  var id = await service.readId();
+                                  var data = await apiService
+                                      .getAbogadoById(int.parse(id));
+                                  print(data["categoria"]);
+                                  var categoriasNombres = data["categoria"]
+                                      .map((cat) => cat["nombre"])
+                                      .toList()
+                                      .join(", ");
+                                  print(categoriasNombres);
                                 },
                                 child: Text("Buscar")),
                           ],

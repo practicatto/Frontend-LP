@@ -168,7 +168,7 @@ class RegisterForm extends StatelessWidget {
                     while (Navigator.of(context).canPop())
                       Navigator.of(context).pop();
                     Navigator.of(context).pushReplacement(PageRouteBuilder(
-                        pageBuilder: (_, __, ___) => Home(title: "Home"),
+                        pageBuilder: (_, __, ___) => Home(title: "Abonet"),
                         transitionDuration: Duration(seconds: 0)));
                     registerForm.isLoading = false;
                   },

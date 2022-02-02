@@ -69,6 +69,18 @@ class ApiService extends ChangeNotifier {
     return abogados;
   }
 
+  Future<Map<String, dynamic>> getAbogadoById(abogId) async {
+    final url = Uri.parse("http://${_baseUrl}abogados/by_id?id=$abogId");
+    notifyListeners();
+    print(url);
+    final resp = await http.get(url);
+    if (resp.statusCode == 200) {
+      return json.decode(resp.body);
+    } else {
+      throw Exception("Faild to get Abogado");
+    }
+  }
+
   Future<List<Ciudad>> getCiudades() async {
     this.isLoading = true;
     notifyListeners();

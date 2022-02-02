@@ -57,11 +57,14 @@ class AuthService extends ChangeNotifier {
         body: json.encode(requestModel.toJson()));
     if (response.statusCode == 200 || response.statusCode == 400) {
       final Map<String, dynamic> data = json.decode(response.body);
-      return writeId(data, true);
+      var returnData = writeId(data, true);
+      print(returnData);
+      return returnData;
     } else {
       throw Exception(response.body);
     }
   }
+
   Future<String> loginClient(LoginRequestModel requestModel) async {
     final Uri url = Uri.parse("$_baseUrl/usuarios/login");
     print(requestModel.toJson());
