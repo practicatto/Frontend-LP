@@ -22,7 +22,12 @@ class _SelectCategoriaState extends State<SelectCategoria> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.categoria.nombre),
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white,
+        title: Text(
+          widget.categoria.nombre,
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Center(
         child: ListView(

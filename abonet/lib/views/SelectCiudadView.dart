@@ -22,6 +22,8 @@ class _SelectCiudadState extends State<SelectCiudad> {
 
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white,
         title: Text(widget.ciudad.nombre),
       ),
       body: Center(

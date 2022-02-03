@@ -15,6 +15,8 @@ class AbogInfo extends StatelessWidget {
     final apiService = Provider.of<ApiService>(context);
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white,
         title: Text("Abogado"),
       ),
       body: futureWidget(apiService),
