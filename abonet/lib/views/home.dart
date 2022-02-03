@@ -20,7 +20,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-  int _selectedIndex = 0;
   // ignore: unused_field
   late TabController _tabController;
   List<ExpansionItem> _faq = [
@@ -166,12 +165,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     var id = await service.readId();
                                     var data = await apiService
                                         .getAbogadoById(int.parse(id));
-                                    print(data["categoria"]);
+
                                     var categoriasNombres = data["categoria"]
                                         .map((cat) => cat["nombre"])
                                         .toList()
                                         .join(", ");
-                                    print(categoriasNombres);
                                   },
                                   child: Text("Buscar")),
                             ],

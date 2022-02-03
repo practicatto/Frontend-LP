@@ -1,7 +1,3 @@
-import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-
 class ExpansionItem {
   String header;
   String body;

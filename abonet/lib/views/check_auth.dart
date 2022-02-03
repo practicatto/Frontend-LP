@@ -17,7 +17,6 @@ class CheckAuthScreen extends StatelessWidget {
             if (!snapshot.hasData) {
               return Text("Espere");
             }
-            print(snapshot.data);
             if (snapshot.data == "") {
               Future.microtask(() {
                 Navigator.pushReplacement(

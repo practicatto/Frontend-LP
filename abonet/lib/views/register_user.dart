@@ -128,7 +128,6 @@ class RegisterUserForm extends StatelessWidget {
                       registerUserForm.isLoading = false;
                     } on Exception catch (e) {
                       registerUserForm.isLoading = false;
-                      print(e);
                     }
                   },
             color: Color(0xff1c243c),

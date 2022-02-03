@@ -212,7 +212,7 @@ class _LoginState extends State<Login> {
             }
           } else {
             try {
-              await authService.login(requestModel);
+              await authService.loginClient(requestModel);
               Home.isAbogado = false;
               Navigator.of(context).pushReplacementNamed(route.homeView);
             } on Exception catch (_) {

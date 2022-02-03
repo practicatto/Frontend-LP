@@ -49,7 +49,6 @@ class _SelectCiudadState extends State<SelectCiudad> {
                         child: Text('Error: ${snapshot.error}'),
                       )
                     ];
-                    print(snapshot.error);
                   } else {
                     abogados = [
                       SizedBox(

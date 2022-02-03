@@ -10,7 +10,6 @@ class LoginService {
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
         body: requestModel.toJson());
     if (response.statusCode == 200 || response.statusCode == 400) {
-      print(json.decode(response.body));
       return LoginResponseModel.fromJson(json.decode(response.body));
     } else {
       throw Exception("Error al iniciar sesion");

@@ -154,7 +154,6 @@ class RegisterForm extends StatelessWidget {
                             registerForm.descripcion,
                             registerForm.experiencia)
                         .then((value) async {
-                      print(value);
                       CategCheckBox.createCatAbog(value!);
                       await apiService.postUbicacion(
                           CiudadesDropDown.ciudadElegida,

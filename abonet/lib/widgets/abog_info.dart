@@ -1,3 +1,4 @@
+import 'package:abonet/models/Comentario.dart';
 import 'package:abonet/services/api_service.dart';
 import 'package:abonet/services/auth_service.dart';
 import 'package:abonet/views/home.dart';
@@ -79,14 +80,119 @@ class MainContainer extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          writeComment(context, data["id"].toString())
+          writeComment(context, data["id"].toString()),
+          cargarComentarios(context)
         ],
       ),
     );
   }
 
+  Widget cardComment(Comentario c, BuildContext context) {
+    final api = Provider.of<ApiService>(context);
+
+    return FutureBuilder<String>(
+      future: api.getUsuario(c.idUser),
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        List<Widget> lista = [];
+        if (snapshot.hasData) {
+          String nombre = snapshot.data!;
+          return Card(
+              child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(Icons.account_circle_rounded, size: 40),
+                            SizedBox(width: 10),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(nombre,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold)),
+                                  estrellas(c.calificacion)
+                                ]),
+                          ]),
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        Expanded(
+                          child: Text(
+                            c.mensaje,
+                            maxLines: 2,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ])
+                    ],
+                  )));
+        } else if (snapshot.hasError) {
+          print(snapshot.error);
+          lista = [
+            Container(
+              child: Text("$snapshot.error"),
+            )
+          ];
+        } else {
+          lista = [
+            Center(
+              child: SizedBox(
+                width: 60,
+                height: 60,
+                child: CircularProgressIndicator(),
+              ),
+            )
+          ];
+        }
+        return Column(
+          children: lista,
+        );
+      },
+    );
+  }
+
+  Column cargarComentarios(BuildContext context) {
+    final api = Provider.of<ApiService>(context);
+    return Column(
+      children: [
+        FutureBuilder<List<Comentario>>(
+            future: api.getComments(data["id"]),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Comentario>> snapshot) {
+              List<Widget> lista = [];
+              if (snapshot.hasData) {
+                lista = [];
+                snapshot.data?.forEach((element) {
+                  lista.add(cardComment(element, context));
+                });
+                return Column(
+                  children: lista,
+                );
+              } else if (snapshot.hasError) {
+                lista = [Container()];
+              } else {
+                lista = [
+                  Center(
+                    child: SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                ];
+              }
+              return Column(
+                children: lista,
+              );
+            })
+      ],
+    );
+  }
+
   Widget listProfAttrs(data) {
-    print(data["categoria"]);
     var categoriasNombres = data.containsKey("categoria")
         ? data["categoria"].map((cat) => cat["nombre"]).toList().join(", ")
         : "";

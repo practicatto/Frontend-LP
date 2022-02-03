@@ -37,11 +37,9 @@ class AuthService extends ChangeNotifier {
       "experiencia": experiencia,
       "calificacion": 5,
     };
-    print(json.encode(registerData));
     final resp = await http.post(url,
         headers: {"Content-Type": "application/json"},
         body: json.encode(registerData));
-    print(resp.body);
     final Map<String, dynamic> data = json.decode(resp.body);
     if (resp.statusCode != 500)
       return writeId(data, true);
@@ -51,7 +49,6 @@ class AuthService extends ChangeNotifier {
 
   Future<String> login(LoginRequestModel requestModel) async {
     final Uri url = Uri.parse("$_baseUrl/abogados/login");
-    print(requestModel.toJson());
     final response = await http.post(url,
         headers: {"Content-Type": "application/json"},
         body: json.encode(requestModel.toJson()));
@@ -67,7 +64,6 @@ class AuthService extends ChangeNotifier {
 
   Future<String> loginClient(LoginRequestModel requestModel) async {
     final Uri url = Uri.parse("$_baseUrl/usuarios/login");
-    print(requestModel.toJson());
     final response = await http.post(url,
         headers: {"Content-Type": "application/json"},
         body: json.encode(requestModel.toJson()));

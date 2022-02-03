@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:abonet/models/Abogado.dart';
 import 'package:abonet/models/Categoria.dart';
 import 'package:abonet/models/Ciudad.dart';
+import 'package:abonet/models/Comentario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -67,7 +68,6 @@ class ApiService extends ChangeNotifier {
 
   Future<Map<String, dynamic>> getAbogadoById(abogId) async {
     final url = Uri.parse("http://${_baseUrl}abogados/by_id?id=$abogId");
-    print(url);
     final resp = await http.get(url);
     if (resp.statusCode == 200) {
       return json.decode(resp.body);
@@ -151,19 +151,15 @@ class ApiService extends ChangeNotifier {
   }
 
   Future<void> postCategByAbog(List<String> categorias, String abogId) async {
-    print(categorias);
     categorias.forEach((element) async {
-      print(element);
       Map<String, dynamic> data = {
         "categoria": int.parse(element),
         "abogado": int.parse(abogId),
       };
-      print(json.encode(data));
       final url = Uri.parse("http://${_baseUrl}abogadoscategoria");
       final resp = await http.post(url,
           headers: {"Content-Type": "application/json"},
           body: json.encode(data));
-      print(resp.body);
       if (resp.statusCode == 500) {
         throw Exception("Ocurrio un error al guardar la categoria del abogado");
       } else {
@@ -179,11 +175,10 @@ class ApiService extends ChangeNotifier {
       "direccion": direccion,
       "abogadoId": int.parse(abogadoId),
     };
-    print(json.encode(data));
     final url = Uri.parse("http://${_baseUrl}ubicacion/");
     final resp = await http.post(url,
         headers: {"Content-Type": "application/json"}, body: json.encode(data));
-    print(resp.body);
+
     if (resp.statusCode == 500) {
       throw Exception("Ocurrio un error al guardar la ubicacion del abogado");
     } else {
@@ -196,14 +191,12 @@ class ApiService extends ChangeNotifier {
       "telefono": telefono,
       "abogadoId": int.parse(abogadoId),
     };
-    print(json.encode(data));
     final url = Uri.parse("http://${_baseUrl}telefono/");
     final resp = await http.post(url,
         headers: {"Content-Type": "application/json"}, body: json.encode(data));
     if (resp.statusCode == 500) {
       throw Exception("Ocurrio un error al guardar el telefono del abogado");
     } else {
-      print(resp.body);
       print("Telefono guardado");
     }
   }
@@ -225,10 +218,34 @@ class ApiService extends ChangeNotifier {
     } else if (resp.statusCode == 400) {
       throw Exception(resp.body);
     } else {
-      print(resp.body);
       print("Comentario publicado");
     }
 
     notifyListeners();
+  }
+
+  Future<List<Comentario>> getComments(int id) async {
+    final List<Comentario> comentario = [];
+    final url = Uri.parse("http://${_baseUrl}comentario/byAbogadoID?id=$id");
+    final resp = await http.get(url);
+    if (resp.statusCode == 200) {
+      json
+          .decode(resp.body)
+          .forEach((item) => comentario.add(Comentario.fromMap(item)));
+
+      return comentario;
+    } else {
+      throw Exception("Faild to get Abogados");
+    }
+  }
+
+  Future<String> getUsuario(int id) async {
+    final url = Uri.parse("http://${_baseUrl}usuarios/byId?id=$id");
+    final resp = await http.get(url);
+    if (resp.statusCode == 200) {
+      return json.decode(resp.body)["nombre_completo"];
+    } else {
+      throw Exception("Faild to get Abogado");
+    }
   }
 }
