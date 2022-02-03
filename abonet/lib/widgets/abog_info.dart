@@ -5,6 +5,7 @@ import 'package:abonet/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AbogInfo extends StatelessWidget {
   final int abogadoId;
@@ -219,6 +220,10 @@ class MainContainer extends StatelessWidget {
           data.containsKey("telefono") && data["telefono"].length > 0
               ? data["telefono"][0]["telefono"]
               : "Sin telefono"),
+      ElevatedButton(
+        onPressed: () => launch("tel://${data["telefono"][0]["telefono"]}"),
+        child: Text("Llamar"),
+      ),
     ]);
   }
 
