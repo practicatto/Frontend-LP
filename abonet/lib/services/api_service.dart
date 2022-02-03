@@ -207,4 +207,28 @@ class ApiService extends ChangeNotifier {
       print("Telefono guardado");
     }
   }
+
+  Future<void> postComentario(String abogadoId, String usuarioId,
+      String mensaje, String calificacion) async {
+    Map<String, dynamic> data = {
+      "mensaje": mensaje,
+      "calificacion": calificacion,
+      "abogadoId": abogadoId,
+      "usuarioId": usuarioId
+    };
+
+    final url = Uri.parse("http://${_baseUrl}comentario/");
+    final resp = await http.post(url,
+        headers: {"Content-Type": "application/json"}, body: json.encode(data));
+    if (resp.statusCode == 500) {
+      throw Exception("Ocurrio un error al guardar el comentario");
+    } else if (resp.statusCode == 400) {
+      throw Exception(resp.body);
+    } else {
+      print(resp.body);
+      print("Comentario publicado");
+    }
+
+    notifyListeners();
+  }
 }

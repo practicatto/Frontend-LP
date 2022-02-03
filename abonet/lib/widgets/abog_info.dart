@@ -1,4 +1,6 @@
 import 'package:abonet/services/api_service.dart';
+import 'package:abonet/services/auth_service.dart';
+import 'package:abonet/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -52,10 +54,19 @@ class AbogInfo extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class MainContainer extends StatelessWidget {
   final Map<String, dynamic> data;
+  late double calfComent = 3.5;
 
-  const MainContainer(this.data, {Key? key}) : super(key: key);
+  MainContainer(this.data, {Key? key}) : super(key: key);
+
+  final myController = TextEditingController();
+
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +79,7 @@ class MainContainer extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          writeComment()
+          writeComment(context, data["id"].toString())
         ],
       ),
     );
@@ -113,7 +124,9 @@ class MainContainer extends StatelessWidget {
         ]));
   }
 
-  Widget writeComment() {
+  Widget writeComment(BuildContext context, String abogadoId) {
+    if (Home.isAbogado) return Container();
+
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: EdgeInsets.only(left: 20),
@@ -144,6 +157,7 @@ class MainContainer extends StatelessWidget {
                   Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     Expanded(
                       child: TextField(
+                        controller: myController,
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         decoration: InputDecoration(
@@ -155,7 +169,15 @@ class MainContainer extends StatelessWidget {
                     IconButton(
                         padding: EdgeInsets.all(0),
                         icon: Icon(Icons.send),
-                        onPressed: () {})
+                        onPressed: () async {
+                          final api =
+                              Provider.of<ApiService>(context, listen: false);
+                          final auth =
+                              Provider.of<AuthService>(context, listen: false);
+                          String id = await auth.readId();
+                          api.postComentario(abogadoId, id, myController.text,
+                              calfComent.toString());
+                        })
                   ])
                 ],
               )))
@@ -163,9 +185,18 @@ class MainContainer extends StatelessWidget {
   }
 
   Widget cuatroEstrellas() {
-    return Row(
-        children: List.filled(4, Icon(Icons.star_outlined)) +
-            [Icon(Icons.star_outline)]);
+    return RatingBar.builder(
+        allowHalfRating: true,
+        itemCount: 5,
+        initialRating: calfComent,
+        itemSize: 20,
+        itemBuilder: (context, index) => Icon(
+              Icons.star,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+        onRatingUpdate: (valor) {
+          calfComent = valor;
+        });
   }
 
   Widget estrellas(double calificacion) {

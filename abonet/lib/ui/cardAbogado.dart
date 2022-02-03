@@ -75,11 +75,13 @@ class dataAbogado extends StatelessWidget {
           Text(
             abogado.nombre,
             style: TextStyle(
-                fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+                fontSize: 18,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold),
           ),
           Text(
             abogado.experiencia,
-            style: TextStyle(fontStyle: FontStyle.italic),
+            style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
           )
         ],
       ),

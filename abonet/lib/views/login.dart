@@ -1,6 +1,7 @@
 import 'package:abonet/models/login_model.dart';
 import 'package:abonet/routes/routes.dart' as route;
 import 'package:abonet/services/auth_service.dart';
+import 'package:abonet/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -188,6 +189,7 @@ class _LoginState extends State<Login> {
           if (isAbogado) {
             try {
               await authService.login(requestModel);
+              Home.isAbogado = true;
               Navigator.of(context).pushReplacementNamed(route.homeView);
             } on Exception catch (_) {
               showDialog<String>(
@@ -211,6 +213,7 @@ class _LoginState extends State<Login> {
           } else {
             try {
               await authService.login(requestModel);
+              Home.isAbogado = false;
               Navigator.of(context).pushReplacementNamed(route.homeView);
             } on Exception catch (_) {
               showDialog<String>(

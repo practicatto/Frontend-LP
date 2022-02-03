@@ -10,6 +10,8 @@ import 'package:abonet/routes/routes.dart' as route;
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
+  static bool isAbogado = false;
+
   Home({Key? key, required this.title}) : super(key: key);
   final String title;
 
